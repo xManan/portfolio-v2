@@ -6,9 +6,19 @@ import { useIntro } from "./intro-context";
 
 let lenis: Lenis | null = null;
 
+// Slow at both ends, so long jumps glide in and settle instead of snapping.
+const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+/** Longer trips take longer, so the speed stays calm over any distance. */
+function durationFor(target: string | number) {
+  const y = typeof target === "number" ? target : (document.querySelector(target)?.getBoundingClientRect().top ?? 0) + window.scrollY;
+  const distance = Math.abs(y - window.scrollY);
+  return Math.min(3.2, 1.1 + distance / 5000);
+}
+
 /** Scroll to an element or y position through Lenis when it's running. */
 export function scrollTo(target: string | number) {
-  if (lenis) lenis.scrollTo(target, { offset: 0, duration: 1.4 });
+  if (lenis) lenis.scrollTo(target, { offset: 0, duration: durationFor(target), easing: easeInOutCubic });
   else if (typeof target === "number") window.scrollTo({ top: target, behavior: "smooth" });
   else document.querySelector(target)?.scrollIntoView({ behavior: "smooth" });
 }
