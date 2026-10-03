@@ -36,7 +36,7 @@ npm run dev              # site on http://localhost:3000, dashboard on /admin
 
 ## The page, top to bottom
 
-1. **Intro**: the quote writes itself in over a drifting gradient, then the sheet lifts (once per tab session; click, key or scroll skips it).
+1. **Intro**: the quote writes itself in over a drifting gradient, then the sheet lifts (on every load of the home page; click, key or scroll skips it).
 2. **Hero**: who you are in one line, under a slanted gradient band.
 3. **About**: the paragraph darkens word by word as you read, then four small truths.
 4. **What I believe**: principle cards that stack as you scroll.

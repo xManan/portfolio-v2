@@ -19,10 +19,6 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   const finish = useCallback(() => {
-    try {
-      sessionStorage.setItem("intro-seen", "1");
-    } catch {}
-    // Not "seen": that would hide the overlay instantly and kill the exit animation.
     document.documentElement.dataset.intro = "done";
     setDone(true);
   }, []);

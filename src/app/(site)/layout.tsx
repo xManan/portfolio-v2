@@ -24,9 +24,10 @@ export const viewport: Viewport = {
   themeColor: "#f6f5fa",
 };
 
-// Runs before first paint so returning visitors (same tab session) never see
-// a flash of the intro overlay.
-const introScript = `try{document.documentElement.dataset.intro=sessionStorage.getItem("intro-seen")?"seen":"play"}catch(e){document.documentElement.dataset.intro="seen"}`;
+// Runs before first paint. Every full load of the home page plays the intro
+// from the top (the browser's restored scroll position would hide the hero it
+// reveals). Other pages skip it.
+const introScript = `(function(){var r=document.documentElement;if(location.pathname==="/"){r.dataset.intro="play";try{history.scrollRestoration="manual"}catch(e){}window.scrollTo(0,0)}else{r.dataset.intro="done"}})()`;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { person } = await getSite();
