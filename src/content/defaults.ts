@@ -193,18 +193,6 @@ export const projects = {
   ],
 };
 
-/** How I think. A real sequence, read left to right. */
-export const thinking = {
-  heading: "How I approach a problem",
-  steps: [
-    { title: "Understand the why", body: "Before any code, I want to know who this is for and what changes for them if we get it right." },
-    { title: "Find the real constraints", body: "Scale, latency, money, time, people. The constraints are the design. The rest is preference." },
-    { title: "Design for failure", body: "Every network call fails eventually. I start from the failure modes and work back to the happy path." },
-    { title: "Ship small, ship often", body: "Small changes are easy to review, easy to roll back and easy to learn from." },
-    { title: "Measure, then believe", body: "Intuition picks where to look. Data decides what’s true. If it isn’t observable, it isn’t done." },
-  ],
-};
-
 /** "Now", inspired by nownownow.com. Update it every month or so. */
 export const now = {
   // TODO(manan): keep this fresh. It's the most human part of the page.

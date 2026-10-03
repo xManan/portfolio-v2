@@ -43,7 +43,6 @@ npm run dev              # site on http://localhost:3000, dashboard on /admin
 5. **What I do**: capabilities accordion and the tool marquee.
 6. **Where I've been**: career timeline with a filling rail.
 7. **Things I've built**: project list; a cover follows your cursor.
-8. **How I approach a problem**: a pinned, sideways sequence.
-9. **Writing**: latest piece plus the rest (`/notes`).
-10. **Now and bookshelf**.
-11. **Contact**.
+8. **Writing**: latest piece plus the rest (`/notes`).
+9. **Now and bookshelf**.
+10. **Contact**.

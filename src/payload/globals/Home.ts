@@ -152,21 +152,6 @@ export const Home: GlobalConfig = {
           ],
         },
         {
-          label: "Approach",
-          name: "thinking",
-          fields: [
-            heading("How I approach a problem"),
-            {
-              name: "steps",
-              type: "array",
-              fields: [
-                { name: "title", type: "text", required: true },
-                { name: "body", type: "textarea", required: true },
-              ],
-            },
-          ],
-        },
-        {
           label: "Now",
           name: "now",
           fields: [

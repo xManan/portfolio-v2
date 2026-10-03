@@ -582,16 +582,6 @@ export interface Home {
         }[]
       | null;
   };
-  thinking: {
-    heading: string;
-    steps?:
-      | {
-          title: string;
-          body: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
   now: {
     /**
      * e.g. October 2026
@@ -739,18 +729,6 @@ export interface HomeSelect<T extends boolean = true> {
               stack?: T;
               href?: T;
               image?: T;
-              id?: T;
-            };
-      };
-  thinking?:
-    | T
-    | {
-        heading?: T;
-        steps?:
-          | T
-          | {
-              title?: T;
-              body?: T;
               id?: T;
             };
       };

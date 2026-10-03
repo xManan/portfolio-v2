@@ -90,7 +90,6 @@ if (!home.about?.lead) {
         heading: d.projects.heading,
         items: d.projects.items.map(({ image: _image, ...p }) => ({ ...p, stack: p.stack.join(", ") })),
       },
-      thinking: d.thinking,
       now: d.now,
       shelf: { books: d.shelf },
     },

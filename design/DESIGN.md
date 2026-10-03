@@ -55,5 +55,5 @@ project covers, the featured article and the contact panel.
 
 Intro (full-bleed mesh + quote), hero (slanted band, Stripe-style), about (lit paragraph +
 bento), principles (sticky stack), craft (sticky statement + accordion + marquee), journey
-(timeline), work (rows + cursor cover), process (pinned horizontal), writing (featured +
+(timeline), work (rows + cursor cover), writing (featured +
 list), now + bookshelf, contact (mesh panel).

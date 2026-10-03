@@ -90,10 +90,6 @@ export const getHome = cache(async () => {
         image: mediaUrl(x.image),
       })),
     },
-    thinking: {
-      heading: h.thinking.heading,
-      steps: (h.thinking.steps ?? []).map(({ title, body }) => ({ title, body })),
-    },
     now: { updated: h.now.updated, items: (h.now.items ?? []).map(({ label, value }) => ({ label, value })) },
     shelf: (h.shelf?.books ?? []).map(({ title, author, note }) => ({ title, author, note })),
   };
