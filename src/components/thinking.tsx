@@ -5,7 +5,13 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { thinking } from "@/content/site";
 import { Container, Heading } from "./ui";
 
-const TINTS = ["#f7cddf", "#d8cbf5", "#f7ebc0", "#ccd9f6", "#efd5f0"];
+const TINTS = [
+  { bg: "#6a3df0", fg: "text-white" },
+  { bg: "#ff6a1f", fg: "text-ink" },
+  { bg: "#ffc22e", fg: "text-ink" },
+  { bg: "#3a1f9d", fg: "text-white" },
+  { bg: "#ff8a3d", fg: "text-ink" },
+];
 
 /**
  * A real sequence, so it reads left to right: vertical scroll pans the track
@@ -33,8 +39,8 @@ export function Thinking() {
       className="flex h-full w-full shrink-0 flex-col justify-between rounded-[var(--radius-card)] bg-surface p-8 shadow-[var(--shadow-soft)] md:w-[min(28rem,70vw)] md:p-10"
     >
       <span
-        className="grainy grid h-16 w-16 place-items-center rounded-full font-display text-3xl font-semibold"
-        style={{ background: TINTS[i % TINTS.length] }}
+        className={`grainy grid h-16 w-16 place-items-center rounded-full font-display text-3xl font-semibold ${TINTS[i % TINTS.length].fg}`}
+        style={{ background: TINTS[i % TINTS.length].bg }}
       >
         <span className="relative z-[2]">{i + 1}</span>
       </span>

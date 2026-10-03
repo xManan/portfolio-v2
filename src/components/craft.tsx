@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { FlowerIcon, PlusIcon } from "@phosphor-icons/react";
+import { PlusIcon, StarFourIcon } from "@phosphor-icons/react";
 import { craft } from "@/content/site";
 import { Container, EASE, Heading } from "./ui";
 
@@ -30,12 +30,12 @@ export function Craft() {
                   aria-controls={`cap-${i}`}
                   className="group flex w-full items-center justify-between gap-6 py-7 text-left md:py-8"
                 >
-                  <span className="font-display text-[clamp(1.6rem,2.6vw,2.25rem)] font-semibold tracking-[-0.03em] transition-colors duration-200 group-hover:text-orchid">
+                  <span className="font-display text-[clamp(1.6rem,2.6vw,2.25rem)] font-semibold tracking-[-0.03em] transition-colors duration-200 group-hover:text-purple">
                     {c.title}
                   </span>
                   <span
                     className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-[transform,background-color] duration-300 ease-[var(--ease-bloom)] ${
-                      isOpen ? "rotate-45 bg-ink text-canvas" : "bg-lavender/60"
+                      isOpen ? "rotate-45 bg-ink text-canvas" : "bg-mist"
                     }`}
                   >
                     <PlusIcon size={16} weight="bold" />
@@ -76,7 +76,7 @@ export function Craft() {
           {[...craft.stack, ...craft.stack].map((t, i) => (
             <span key={i} className="flex items-center gap-10 whitespace-nowrap font-display text-4xl font-medium tracking-[-0.03em] text-ink/80 md:text-6xl">
               {t}
-              <FlowerIcon size={28} weight="fill" className="text-lavender" />
+              <StarFourIcon size={26} weight="fill" className="text-orange" />
             </span>
           ))}
         </div>

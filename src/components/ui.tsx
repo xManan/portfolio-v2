@@ -38,7 +38,7 @@ export function Heading({
       : { animate: play ? "show" : "hidden" };
 
   return (
-    <Tag className={`font-display font-semibold tracking-[-0.035em] text-ink ${className}`}>
+    <Tag className={`font-display font-semibold tracking-[-0.04em] ${/\btext-white\b/.test(className) ? "" : "text-ink"} ${className}`}>
       <motion.span className="block" initial="hidden" {...trigger}>
         {lines.map((line, i) => (
           <span key={i} className="block overflow-hidden pb-[0.1em]">
@@ -98,14 +98,14 @@ export function PillLink({
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className={`group inline-flex items-center gap-3 rounded-full py-2 pl-6 pr-2 text-[15px] font-medium transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-bloom)] active:scale-[0.98] ${
         solid
-          ? "bg-ink text-canvas shadow-[0_10px_30px_-10px_rgb(43_34_56/0.5)] hover:bg-orchid"
+          ? "bg-ink text-canvas shadow-[0_10px_30px_-10px_rgb(43_34_56/0.5)] hover:bg-purple"
           : "bg-surface/70 text-ink ring-1 ring-line backdrop-blur hover:bg-surface"
       }`}
     >
       <span className="whitespace-nowrap">{children}</span>
       <span
         className={`grid h-9 w-9 place-items-center rounded-full transition-transform duration-300 ease-[var(--ease-bloom)] group-hover:translate-x-0.5 group-hover:-translate-y-px ${
-          solid ? "bg-canvas/15" : "bg-lavender/60"
+          solid ? "bg-canvas/15" : "bg-mist"
         }`}
       >
         {icon ?? <ArrowUpRightIcon size={16} weight="bold" />}

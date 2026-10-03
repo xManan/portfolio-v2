@@ -16,10 +16,10 @@ function Word({ children, progress, range }: { children: string; progress: Motio
 }
 
 const TILES = [
-  { span: "md:col-span-4", bg: "linear-gradient(135deg, #f7cddf, #efd9f2)" },
-  { span: "md:col-span-2", bg: "linear-gradient(135deg, #d8cbf5, #e6dcfa)" },
-  { span: "md:col-span-2", bg: "linear-gradient(135deg, #f7ebc0, #f9e0d6)" },
-  { span: "md:col-span-4", bg: "linear-gradient(135deg, #ccd9f6, #e2d8f7)" },
+  { span: "md:col-span-4", bg: "linear-gradient(135deg, #6a3df0, #3a1f9d)", fg: "text-white", sub: "text-white/70" },
+  { span: "md:col-span-2", bg: "linear-gradient(135deg, #ffc22e, #ffb01f)", fg: "text-ink", sub: "text-ink/65" },
+  { span: "md:col-span-2", bg: "linear-gradient(135deg, #ff6a1f, #ff8a3d)", fg: "text-ink", sub: "text-ink/70" },
+  { span: "md:col-span-4", bg: "linear-gradient(135deg, #1a1530, #3a1f9d)", fg: "text-white", sub: "text-white/65" },
 ];
 
 export function Story() {
@@ -53,8 +53,8 @@ export function Story() {
               className={`grainy flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-7 md:min-h-[240px] md:p-9 ${TILES[i % 4].span}`}
               style={{ background: TILES[i % 4].bg }}
             >
-              <span className="relative z-[2] text-sm font-medium text-ink/70">{fact.label}</span>
-              <p className="relative z-[2] mt-10 max-w-[28ch] font-display text-[22px] font-medium leading-snug tracking-[-0.015em] md:text-[26px]">
+              <span className={`relative z-[2] text-sm font-medium ${TILES[i % 4].sub}`}>{fact.label}</span>
+              <p className={`relative z-[2] mt-10 max-w-[28ch] font-display text-[22px] font-semibold leading-snug tracking-[-0.02em] md:text-[26px] ${TILES[i % 4].fg}`}>
                 {fact.value}
               </p>
             </li>

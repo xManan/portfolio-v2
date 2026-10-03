@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import "@fontsource-variable/bricolage-grotesque/opsz.css";
+import "@fontsource-variable/schibsted-grotesk/index.css";
 import "./globals.css";
 import { person, hero } from "@/content/site";
 import { SmoothScroll } from "@/components/smooth-scroll";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8f5fc",
+  themeColor: "#f6f5fa",
 };
 
 // Runs before first paint so returning visitors (same tab session) never see

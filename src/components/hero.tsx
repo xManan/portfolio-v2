@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowDownIcon } from "@phosphor-icons/react";
 import { hero, person } from "@/content/site";
 import { useIntro } from "./intro-context";
-import { Bloom } from "./bloom";
+import { Mesh } from "./mesh";
 import { scrollTo } from "./smooth-scroll";
 import { Container, EASE, Heading, PillLink } from "./ui";
 
@@ -14,14 +14,9 @@ export function Hero() {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
 
-  // The flower leans gently toward the cursor.
-  const pointer = useMotionValue(0);
-  const tilt = useSpring(useTransform(pointer, [-1, 1], [-8, 8]), { stiffness: 60, damping: 20 });
-
-  // As the visitor scrolls on, the bloom sinks and softens.
+  // The gradient band drifts up a little slower than the page.
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bloomY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "18%"]);
-  const fadeOut = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
+  const bandY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-12%"]);
 
   const enter = (delay: number) => ({
     initial: { opacity: 0, y: reduce ? 0 : 14 },
@@ -30,37 +25,36 @@ export function Hero() {
   });
 
   return (
-    <section
-      ref={ref}
-      id="top"
-      className="relative flex min-h-[100dvh] items-center overflow-hidden pb-16 pt-28 md:pt-24"
-      onPointerMove={(e) => {
-        if (reduce) return;
-        const r = e.currentTarget.getBoundingClientRect();
-        pointer.set(((e.clientX - r.left) / r.width) * 2 - 1);
-      }}
-    >
-      <div
+    <section ref={ref} id="top" className="relative flex min-h-[100dvh] items-end overflow-hidden pb-16 pt-28 md:pb-24">
+      {/* Stripe-style slanted gradient band across the top */}
+      <motion.div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(45% 55% at 8% 12%, rgb(216 203 245 / 0.65), transparent 70%), radial-gradient(40% 50% at 92% 85%, rgb(247 205 223 / 0.7), transparent 70%), radial-gradient(25% 30% at 70% 10%, rgb(247 235 192 / 0.5), transparent 70%)",
-        }}
-      />
+        style={{ y: bandY }}
+        className="absolute inset-x-0 top-0 h-[46%] [clip-path:polygon(0_0,100%_0,100%_100%,0_62%)] md:h-[54%] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_36%)]"
+        initial={{ opacity: 0 }}
+        animate={done ? { opacity: 1 } : undefined}
+        transition={{ duration: 1.2, ease: EASE }}
+      >
+        <Mesh preset="brand" />
+      </motion.div>
 
-      <Container className="relative grid items-center gap-12 md:grid-cols-12 md:gap-8">
-        <div className="md:col-span-7">
-          <motion.p {...enter(0.15)} className="mb-6 text-lg text-soft">
-            {hero.greeting}
-          </motion.p>
-          <Heading as="h1" play={done} delay={0.25} className="text-[clamp(2.75rem,6vw,5.25rem)] leading-[1.02]">
-            {hero.headline}
-          </Heading>
-          <motion.p {...enter(0.55)} className="mt-7 max-w-[34ch] text-lg leading-relaxed text-soft md:text-xl">
+      <Container className="relative">
+        <motion.p {...enter(0.15)} className="mb-5 text-lg text-soft md:text-xl">
+          {hero.greeting}
+        </motion.p>
+        <Heading
+          as="h1"
+          play={done}
+          delay={0.25}
+          className="max-w-[14ch] text-[clamp(3rem,8.4vw,7.75rem)] leading-[0.95] tracking-[-0.05em]"
+        >
+          {hero.headline}
+        </Heading>
+        <div className="mt-10 grid gap-8 md:grid-cols-12 md:items-end">
+          <motion.p {...enter(0.55)} className="max-w-[36ch] text-lg leading-relaxed text-soft md:col-span-6 md:text-xl">
             {hero.intro}
           </motion.p>
-          <motion.div {...enter(0.7)} className="mt-10 flex flex-wrap items-center gap-3">
+          <motion.div {...enter(0.7)} className="flex flex-wrap items-center gap-3 md:col-span-6 md:justify-end">
             <PillLink
               href="#work"
               onClick={(e) => {
@@ -76,10 +70,6 @@ export function Hero() {
             </PillLink>
           </motion.div>
         </div>
-
-        <motion.div style={{ y: bloomY, opacity: fadeOut }} className="relative mx-auto w-[min(86vw,520px)] md:col-span-5 md:w-full">
-          <Bloom play={done} delay={0.2} tilt={tilt} portrait={person.portrait || undefined} />
-        </motion.div>
       </Container>
     </section>
   );

@@ -21,13 +21,12 @@ npm run build    # static site in ./out — deploy anywhere
 | Sections | `src/components/*.tsx`, assembled in `src/app/page.tsx` |
 
 Search for `TODO(manan)` to find everything that still needs your real words.
-Set `person.portrait` to a photo in `/public` to put your face in the centre of the hero flower,
-and give projects an `image` to replace their gradient covers.
+Give projects an `image` (a path in `/public`) to replace their gradient covers.
 
 ## The page, top to bottom
 
-1. **Intro**: petals bloom while the quote writes itself in, then the sheet lifts (once per tab session; click, key or scroll skips it).
-2. **Hero**: who you are in one line, with the flower.
+1. **Intro**: the quote writes itself in over a drifting gradient, then the sheet lifts (once per tab session; click, key or scroll skips it).
+2. **Hero**: who you are in one line, under a slanted gradient band.
 3. **About**: the paragraph darkens word by word as you read, then four small truths.
 4. **What I believe**: principle cards that stack as you scroll.
 5. **What I do**: capabilities accordion and the tool marquee.

@@ -6,11 +6,11 @@ import { now, shelf } from "@/content/site";
 import { Container, EASE, Heading } from "./ui";
 
 const SPINES = [
-  { bg: "#d8cbf5", h: "h-[300px]" },
-  { bg: "#f7cddf", h: "h-[260px]" },
-  { bg: "#f7ebc0", h: "h-[320px]" },
-  { bg: "#ccd9f6", h: "h-[280px]" },
-  { bg: "#efd5f0", h: "h-[300px]" },
+  { bg: "#6a3df0", fg: "text-white", h: "h-[300px]" },
+  { bg: "#ff6a1f", fg: "text-ink", h: "h-[260px]" },
+  { bg: "#ffc22e", fg: "text-ink", h: "h-[320px]" },
+  { bg: "#3a1f9d", fg: "text-white", h: "h-[280px]" },
+  { bg: "#1a1530", fg: "text-white", h: "h-[300px]" },
 ];
 
 export function Now() {
@@ -25,8 +25,8 @@ export function Now() {
           <p className="mt-3 text-soft">What has my attention, as of {now.updated}.</p>
           <dl className="mt-10 rounded-[var(--radius-card)] bg-surface p-3 shadow-[var(--shadow-soft)]">
             {now.items.map((item) => (
-              <div key={item.label} className="grid gap-1 rounded-[var(--radius-inner)] px-5 py-5 transition-colors duration-200 hover:bg-lavender/30 sm:grid-cols-3 sm:gap-6">
-                <dt className="text-sm font-medium text-orchid">{item.label}</dt>
+              <div key={item.label} className="grid gap-1 rounded-[var(--radius-inner)] px-5 py-5 transition-colors duration-200 hover:bg-mist/70 sm:grid-cols-3 sm:gap-6">
+                <dt className="text-sm font-medium text-purple">{item.label}</dt>
                 <dd className="leading-relaxed sm:col-span-2">{item.value}</dd>
               </div>
             ))}
@@ -38,7 +38,7 @@ export function Now() {
           <p className="mt-3 text-soft">Books that rearranged something in my head.</p>
 
           {/* Spines stand on a shelf; hovering or focusing one pulls it out. */}
-          <div className="mt-10 flex h-[340px] items-end gap-3 border-b-[6px] border-lavender/70 px-2" role="list">
+          <div className="mt-10 flex h-[340px] items-end gap-3 border-b-[6px] border-ink/85 px-2" role="list">
             {shelf.map((b, i) => {
               const isActive = i === active;
               return (
@@ -55,7 +55,7 @@ export function Now() {
                   }`}
                   style={{ background: SPINES[i % SPINES.length].bg }}
                 >
-                  <span className="relative z-[2] block h-full font-display text-[15px] font-semibold leading-tight tracking-[-0.01em] [writing-mode:vertical-rl]">
+                  <span className={`relative z-[2] block h-full ${SPINES[i % SPINES.length].fg} font-display text-[15px] font-semibold leading-tight tracking-[-0.01em] [writing-mode:vertical-rl]`}>
                     {b.title}
                   </span>
                 </button>

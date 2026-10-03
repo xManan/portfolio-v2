@@ -17,11 +17,11 @@ export function Journey() {
 
         <ol ref={ref} className="relative">
           {/* Rail that fills as you read down the timeline */}
-          <span aria-hidden className="absolute bottom-2 left-[9px] top-2 w-[2px] rounded bg-lavender/60 md:left-[calc(25%+9px)]" />
+          <span aria-hidden className="absolute bottom-2 left-[9px] top-2 w-[2px] rounded bg-mist md:left-[calc(25%+9px)]" />
           <motion.span
             aria-hidden
             className="absolute bottom-2 left-[9px] top-2 w-[2px] origin-top rounded md:left-[calc(25%+9px)]"
-            style={{ scaleY: fill, background: "linear-gradient(to bottom, #7a4fb5, #f7a9c8)" }}
+            style={{ scaleY: fill, background: "linear-gradient(to bottom, #6a3df0, #ff6a1f, #ffc22e)" }}
           />
 
           {journey.items.map((j) => (
@@ -29,9 +29,9 @@ export function Journey() {
               <p className="text-base font-medium text-soft md:pr-14 md:pt-3 md:text-right">{j.period}</p>
               <span
                 aria-hidden
-                className="absolute left-0 top-1 h-5 w-5 rounded-full bg-canvas ring-2 ring-lavender md:left-[25%] md:top-3"
+                className="absolute left-0 top-1 h-5 w-5 rounded-full bg-canvas ring-2 ring-purple md:left-[25%] md:top-3"
               >
-                <span className="absolute inset-[5px] rounded-full bg-pink" />
+                <span className="absolute inset-[5px] rounded-full bg-sun" />
               </span>
               <div className="md:col-span-3 md:pl-16">
                 <h3 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-semibold leading-tight tracking-[-0.03em]">{j.role}</h3>

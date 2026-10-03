@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import type { NoteMeta } from "@/lib/notes";
+import { Mesh } from "./mesh";
 import { Container, Heading } from "./ui";
 
 type Item = NoteMeta & { displayDate: string };
@@ -13,7 +14,7 @@ export function NoteRow({ note }: { note: Item }) {
       <p className="text-sm text-soft">
         {note.displayDate}, {note.readingTime} min read
       </p>
-      <h3 className="mt-2 font-display text-2xl font-semibold leading-snug tracking-[-0.025em] transition-colors duration-200 group-hover:text-orchid md:text-[28px]">
+      <h3 className="mt-2 font-display text-2xl font-semibold leading-snug tracking-[-0.025em] transition-colors duration-200 group-hover:text-purple md:text-[28px]">
         {note.title}
       </h3>
       <p className="mt-2 max-w-[52ch] leading-relaxed text-soft">{note.summary}</p>
@@ -32,9 +33,9 @@ export function Writing({ notes }: { notes: Item[] }) {
         <div className="grid gap-10 md:grid-cols-12 md:gap-10">
           <Link
             href={`/notes/${featured.slug}/`}
-            className="grainy group flex min-h-[380px] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-8 md:col-span-7 md:min-h-[460px] md:p-12"
-            style={{ background: "linear-gradient(150deg, #d8cbf5 0%, #efd5f0 45%, #f7cddf 100%)" }}
+            className="group relative flex min-h-[380px] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-8 md:col-span-7 md:min-h-[460px] md:p-12"
           >
+            <Mesh preset="sun" />
             <p className="relative z-[2] text-sm font-medium text-ink/70">
               Latest, {featured.displayDate}
             </p>
@@ -43,7 +44,7 @@ export function Writing({ notes }: { notes: Item[] }) {
                 {featured.title}
               </h3>
               <p className="mt-4 max-w-[44ch] text-lg leading-relaxed text-ink/75">{featured.summary}</p>
-              <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-ink py-2 pl-5 pr-2 text-sm font-medium text-canvas transition-colors duration-200 group-hover:bg-orchid">
+              <span className="mt-8 inline-flex items-center gap-3 rounded-full bg-ink py-2 pl-5 pr-2 text-sm font-medium text-canvas transition-colors duration-200 group-hover:bg-purple">
                 Read it
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-canvas/15 transition-transform duration-300 group-hover:rotate-45">
                   <ArrowUpRightIcon size={14} weight="bold" />
@@ -58,7 +59,7 @@ export function Writing({ notes }: { notes: Item[] }) {
             ))}
             <Link
               href="/notes/"
-              className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-sm font-medium shadow-[var(--shadow-soft)] ring-1 ring-line transition-colors hover:text-orchid"
+              className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-sm font-medium shadow-[var(--shadow-soft)] ring-1 ring-line transition-colors hover:text-purple"
             >
               Read all writing
             </Link>

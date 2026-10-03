@@ -2,27 +2,28 @@
 
 /* Tokens: see design/DESIGN.md */
 @theme {
-  --color-canvas: #f8f5fc;
-  --color-surface: #fdfbff;
-  --color-ink: #2b2238;
-  --color-soft: #6a6080;
-  --color-line: rgb(43 34 56 / 0.1);
-  --color-lavender: #d8cbf5;
-  --color-pink: #f7cddf;
-  --color-butter: #f7ebc0;
-  --color-periwinkle: #ccd9f6;
-  --color-orchid: #7a4fb5;
+  --color-canvas: #f6f5fa;
+  --color-surface: #fefeff;
+  --color-ink: #1a1530;
+  --color-soft: #5c5872;
+  --color-line: rgb(26 21 48 / 0.12);
+  /* Saturated brand colours, after Stripe's mesh. Purple is the one UI accent. */
+  --color-purple: #6a3df0;
+  --color-violet: #3a1f9d;
+  --color-orange: #ff6a1f;
+  --color-sun: #ffc22e;
+  --color-mist: #e8e3fa;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque Variable", var(--font-geist-sans), ui-sans-serif, sans-serif;
+  --font-display: "Schibsted Grotesk Variable", var(--font-geist-sans), ui-sans-serif, sans-serif;
 
-  --radius-card: 28px;
-  --radius-inner: 22px;
+  --radius-card: 24px;
+  --radius-inner: 18px;
 
   --ease-bloom: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-exit: cubic-bezier(0.55, 0, 1, 0.45);
 
-  --shadow-soft: 0 1px 2px rgb(43 34 56 / 0.04), 0 12px 40px -12px rgb(43 34 56 / 0.12);
+  --shadow-soft: 0 1px 2px rgb(26 21 48 / 0.05), 0 14px 40px -14px rgb(58 31 157 / 0.22);
 }
 
 :root {
@@ -43,19 +44,18 @@ body {
 }
 
 ::selection {
-  background: var(--color-lavender);
+  background: var(--color-sun);
   color: var(--color-ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-orchid);
+  outline: 2px solid var(--color-purple);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
 .font-display {
   font-family: var(--font-display);
-  font-optical-sizing: auto;
 }
 
 /* Lenis smooth scroll */
@@ -73,9 +73,9 @@ html[data-intro="seen"] [data-intro-overlay] { display: none; }
   position: fixed;
   inset: 0;
   z-index: 90;
-  opacity: 0.22;
+  opacity: 0.32;
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.13  0 0 0 0 0.22  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.13  0 0 0 0 0.22  0 0 0 0.75 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
 /* In the components layer so Tailwind utilities (e.g. `absolute`) still win. */
@@ -92,9 +92,32 @@ html[data-intro="seen"] [data-intro-overlay] { display: none; }
   border-radius: inherit;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.5;
-  mix-blend-mode: soft-light;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.85;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Stripe-style mesh gradient: soft colour fields drifting over a base.
+   Only transforms animate, so it stays on the compositor. */
+.mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--mesh-base, #6a3df0);
+}
+.mesh > span {
+  position: absolute;
+  width: 75%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  will-change: transform;
+  animation: mesh-drift var(--d, 18s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes mesh-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(var(--tx, 12%), var(--ty, -8%)) scale(var(--s, 1.15)); }
+  100% { transform: translate(calc(var(--tx, 12%) * -0.6), calc(var(--ty, -8%) * -0.8)) scale(0.95); }
 }
 }
 
@@ -106,12 +129,6 @@ html[data-intro="seen"] [data-intro-overlay] { display: none; }
 .marquee-mask {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
-
-@keyframes drift {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.drift { animation: drift 90s linear infinite; }
 
 /* Long-form writing */
 .prose-note {
@@ -131,7 +148,7 @@ html[data-intro="seen"] [data-intro-overlay] { display: none; }
 }
 .prose-note h3 { font-weight: 600; color: var(--color-ink); margin-top: 2em; }
 .prose-note a {
-  color: var(--color-orchid);
+  color: var(--color-purple);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
@@ -139,18 +156,19 @@ html[data-intro="seen"] [data-intro-overlay] { display: none; }
 .prose-note strong { color: var(--color-ink); font-weight: 600; }
 .prose-note blockquote {
   border-radius: var(--radius-inner);
-  background: linear-gradient(135deg, var(--color-blush, #fbe6ef), var(--color-lavender));
+  background: var(--color-mist);
+  border-left: 4px solid var(--color-purple);
   padding: 1.25rem 1.5rem;
   color: var(--color-ink);
 }
 .prose-note ul { list-style: disc; padding-left: 1.25em; }
-.prose-note ul li::marker { color: var(--color-orchid); }
+.prose-note ul li::marker { color: var(--color-orange); }
 .prose-note ul li + li { margin-top: 0.5em; }
 .prose-note ol { list-style: decimal; padding-left: 1.4em; }
 .prose-note code {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.85em;
-  background: rgb(216 203 245 / 0.45);
+  background: var(--color-mist);
   border-radius: 6px;
   padding: 0.1em 0.4em;
 }
@@ -169,5 +187,5 @@ html[data-intro="seen"] [data-intro-overlay] { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .marquee,
-  .drift { animation: none; }
+  .mesh > span { animation: none; }
 }

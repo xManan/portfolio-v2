@@ -47,17 +47,17 @@ export function Work() {
                 <div className="aspect-[16/10] md:hidden">
                   <Cover index={i} image={p.image || undefined} title={p.title} />
                 </div>
-                <h3 className="font-display text-[clamp(2rem,4.4vw,3.75rem)] font-semibold leading-none tracking-[-0.04em] transition-[color,transform] duration-300 ease-[var(--ease-bloom)] group-hover:translate-x-2 group-hover:text-orchid md:col-span-5">
+                <h3 className="font-display text-[clamp(2rem,4.4vw,3.75rem)] font-semibold leading-none tracking-[-0.04em] transition-[color,transform] duration-300 ease-[var(--ease-bloom)] group-hover:translate-x-2 group-hover:text-purple md:col-span-5">
                   {p.title}
                 </h3>
                 <div className="md:col-span-5">
-                  <p className="text-sm font-medium text-orchid">{p.kind}</p>
+                  <p className="text-sm font-medium text-purple">{p.kind}</p>
                   <p className="mt-2 max-w-[44ch] leading-relaxed text-soft">{p.summary}</p>
                   <p className="mt-3 text-sm text-ink/70">{p.stack.join(", ")}</p>
                 </div>
                 <div className="flex items-center justify-between gap-4 md:col-span-2 md:justify-end">
                   <span className="text-sm text-soft">{p.year}</span>
-                  <span className="grid h-11 w-11 place-items-center rounded-full bg-lavender/60 transition-[transform,background-color,color] duration-300 ease-[var(--ease-bloom)] group-hover:rotate-45 group-hover:bg-ink group-hover:text-canvas">
+                  <span className="grid h-11 w-11 place-items-center rounded-full bg-mist transition-[transform,background-color,color] duration-300 ease-[var(--ease-bloom)] group-hover:rotate-45 group-hover:bg-ink group-hover:text-canvas">
                     <ArrowUpRightIcon size={18} weight="bold" />
                   </span>
                 </div>

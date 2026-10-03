@@ -65,14 +65,14 @@ export function Nav() {
                 key={l.id}
                 href={`/#${l.id}`}
                 onClick={(e) => go(e, l.id)}
-                className="rounded-full px-4 py-2 text-[14px] text-soft transition-colors duration-200 hover:bg-lavender/50 hover:text-ink"
+                className="rounded-full px-4 py-2 text-[14px] text-soft transition-colors duration-200 hover:bg-mist hover:text-ink"
               >
                 {l.label}
               </a>
             ))}
             <a
               href={`mailto:${person.email}`}
-              className="ml-1 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[14px] font-medium text-canvas transition-colors duration-200 hover:bg-orchid"
+              className="ml-1 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[14px] font-medium text-canvas transition-colors duration-200 hover:bg-purple"
             >
               <EnvelopeSimpleIcon size={16} weight="bold" />
               Email me
@@ -81,7 +81,7 @@ export function Nav() {
 
           <button
             onClick={() => setOpen((o) => !o)}
-            className="relative grid h-10 w-10 place-items-center rounded-full bg-lavender/60 md:hidden"
+            className="relative grid h-10 w-10 place-items-center rounded-full bg-mist md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}

@@ -34,11 +34,11 @@ export default async function NotePage({ params }: Props) {
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-[70vh]"
-          style={{ background: "radial-gradient(50% 60% at 10% 0%, rgb(247 205 223 / 0.6), transparent 70%), radial-gradient(45% 55% at 95% 5%, rgb(216 203 245 / 0.65), transparent 70%)" }}
+          style={{ background: "radial-gradient(50% 60% at 10% 0%, rgb(106 61 240 / 0.22), transparent 70%), radial-gradient(40% 50% at 92% 5%, rgb(255 106 31 / 0.2), transparent 70%), radial-gradient(30% 40% at 60% 0%, rgb(255 194 46 / 0.25), transparent 70%)" }}
         />
         <Container className="relative">
           <article className="mx-auto max-w-[68ch]">
-            <Link href="/notes/" className="inline-flex items-center gap-2 text-soft hover:text-orchid">
+            <Link href="/notes/" className="inline-flex items-center gap-2 text-soft hover:text-purple">
               <ArrowLeftIcon size={16} weight="bold" /> All writing
             </Link>
             <header className="mt-10 pb-10">
@@ -50,7 +50,7 @@ export default async function NotePage({ params }: Props) {
               {note.tags.length > 0 && (
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {note.tags.map((t) => (
-                    <li key={t} className="rounded-full bg-lavender/50 px-3 py-1 text-sm">
+                    <li key={t} className="rounded-full bg-mist px-3 py-1 text-sm">
                       {t}
                     </li>
                   ))}
@@ -65,7 +65,7 @@ export default async function NotePage({ params }: Props) {
                 <p className="text-soft">Written by {person.name}</p>
                 <a
                   href={`mailto:${person.email}?subject=${encodeURIComponent(`Re: ${note.title}`)}`}
-                  className="mt-1 inline-block font-medium text-orchid underline-offset-4 hover:underline"
+                  className="mt-1 inline-block font-medium text-purple underline-offset-4 hover:underline"
                 >
                   Reply by email
                 </a>
@@ -75,7 +75,7 @@ export default async function NotePage({ params }: Props) {
                   <span className="inline-flex items-center gap-2 text-soft">
                     Next <ArrowRightIcon size={14} weight="bold" />
                   </span>
-                  <span className="mt-1 block font-display text-2xl font-semibold tracking-[-0.025em] transition-colors group-hover:text-orchid">
+                  <span className="mt-1 block font-display text-2xl font-semibold tracking-[-0.025em] transition-colors group-hover:text-purple">
                     {next.title}
                   </span>
                 </Link>

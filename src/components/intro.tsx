@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { quote } from "@/content/site";
 import { useIntro } from "./intro-context";
-import { Bloom } from "./bloom";
+import { Mesh } from "./mesh";
 import { EASE, EASE_CURTAIN } from "./ui";
 
 const WORD_DELAY = 0.9;
 const WORD_STAGGER = 0.07;
 
 /**
- * Opening moment: petals bloom, the quote writes itself in word by word,
+ * Opening moment: over a drifting mesh gradient, the quote writes itself in word by word,
  * holds for a breath, then the whole sheet lifts to reveal the page.
  * Any click, key or scroll lifts it early.
  */
@@ -63,25 +63,14 @@ export function Intro() {
           role="dialog"
           aria-label="Opening quote"
           onClick={lift}
-          className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center overflow-hidden bg-canvas"
+          className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center overflow-hidden bg-violet"
           exit={reduce ? { opacity: 0 } : { y: "-100%", borderBottomLeftRadius: "40% 12%", borderBottomRightRadius: "40% 12%" }}
           transition={{ duration: reduce ? 0.3 : 1.1, ease: EASE_CURTAIN }}
         >
-          {/* Ambient washes */}
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(60% 50% at 15% 10%, rgb(216 203 245 / 0.7), transparent 70%), radial-gradient(50% 45% at 90% 90%, rgb(247 205 223 / 0.75), transparent 70%)",
-            }}
-          />
-          <div aria-hidden className="absolute left-1/2 top-1/2 w-[min(78vmin,620px)] -translate-x-1/2 -translate-y-1/2 opacity-45">
-            <Bloom delay={0.1} />
-          </div>
+          <Mesh preset="dusk" />
 
-          <figure className="relative max-w-4xl px-6 text-center">
-            <blockquote className="font-display text-[clamp(2.2rem,6vw,5.25rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-ink">
+          <figure className="relative z-[2] max-w-4xl px-6 text-center">
+            <blockquote className="font-display text-[clamp(2.2rem,6vw,5.25rem)] font-semibold leading-[1.04] tracking-[-0.04em] text-white">
               {words.map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden pb-[0.12em] align-top">
                   <motion.span
@@ -99,7 +88,7 @@ export function Intro() {
               ))}
             </blockquote>
             <motion.figcaption
-              className="mt-8 text-base text-soft md:text-lg"
+              className="mt-8 text-base text-white/75 md:text-lg"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: WORD_DELAY + words.length * WORD_STAGGER + 0.3, duration: 0.8, ease: EASE }}
@@ -109,7 +98,7 @@ export function Intro() {
           </figure>
 
           <motion.p
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm text-soft"
+            className="absolute bottom-8 left-1/2 z-[2] -translate-x-1/2 whitespace-nowrap text-sm text-white/70"
             initial={{ opacity: 0 }}
             animate={{ opacity: ready ? 1 : 0 }}
             transition={{ duration: 0.6 }}

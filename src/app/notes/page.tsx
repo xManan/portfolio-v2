@@ -20,11 +20,11 @@ export default function NotesIndex() {
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-[60vh]"
-          style={{ background: "radial-gradient(50% 60% at 15% 0%, rgb(216 203 245 / 0.6), transparent 70%), radial-gradient(40% 50% at 90% 10%, rgb(247 205 223 / 0.6), transparent 70%)" }}
+          style={{ background: "radial-gradient(50% 60% at 10% 0%, rgb(106 61 240 / 0.22), transparent 70%), radial-gradient(40% 50% at 92% 5%, rgb(255 106 31 / 0.2), transparent 70%), radial-gradient(30% 40% at 60% 0%, rgb(255 194 46 / 0.25), transparent 70%)" }}
         />
         <Container className="relative">
           <div className="mx-auto max-w-3xl">
-            <Link href="/" className="inline-flex items-center gap-2 text-soft hover:text-orchid">
+            <Link href="/" className="inline-flex items-center gap-2 text-soft hover:text-purple">
               <ArrowLeftIcon size={16} weight="bold" /> Home
             </Link>
             <h1 className="mt-8 font-display text-[clamp(3rem,8vw,5.5rem)] font-semibold leading-none tracking-[-0.045em]">Writing</h1>
