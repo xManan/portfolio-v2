@@ -5,6 +5,7 @@ import * as migration_20261003_184234_remove_contact_messages from './20261003_1
 import * as migration_20261003_194106_remove_approach_section from './20261003_194106_remove_approach_section';
 import * as migration_20261003_195610_about_object_stories from './20261003_195610_about_object_stories';
 import * as migration_20261003_203138_remove_photo_credit from './20261003_203138_remove_photo_credit';
+import * as migration_20261003_210343_profile_photo from './20261003_210343_profile_photo';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20261003_203138_remove_photo_credit.up,
     down: migration_20261003_203138_remove_photo_credit.down,
-    name: '20261003_203138_remove_photo_credit'
+    name: '20261003_203138_remove_photo_credit',
+  },
+  {
+    up: migration_20261003_210343_profile_photo.up,
+    down: migration_20261003_210343_profile_photo.down,
+    name: '20261003_210343_profile_photo'
   },
 ];

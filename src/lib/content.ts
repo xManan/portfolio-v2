@@ -21,13 +21,17 @@ const mediaUrl = (m?: number | Media | null) => (m && typeof m === "object" ? m.
 
 export const getSite = cache(async () => {
   const p = await payload();
-  const s = await p.findGlobal({ slug: "settings" });
+  const s = await p.findGlobal({ slug: "settings", depth: 1 });
+  const portrait = s.portrait && typeof s.portrait === "object" && s.portrait.url ? s.portrait : null;
   return {
     person: {
       name: s.name,
       firstName: s.firstName,
       role: s.role,
       location: s.location ?? "",
+      portrait: portrait
+        ? { src: portrait.url as string, width: portrait.width ?? 800, height: portrait.height ?? 1000, alt: portrait.alt || s.name }
+        : null,
       email: s.email,
       socials: (s.socials ?? []).map(({ label, href }) => ({ label, href })),
     },

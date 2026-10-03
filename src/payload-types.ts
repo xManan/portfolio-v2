@@ -442,9 +442,13 @@ export interface Setting {
    */
   role: string;
   /**
-   * Shown once, in the footer.
+   * Shown on your photo in the hero and in the footer.
    */
   location?: string | null;
+  /**
+   * Shown in the hero. A portrait (taller than wide, about 4:5) with your face near the top third works best. Until you add one, a gradient placeholder is shown.
+   */
+  portrait?: (number | null) | Media;
   email: string;
   socials?:
     | {
@@ -621,6 +625,7 @@ export interface SettingsSelect<T extends boolean = true> {
   firstName?: T;
   role?: T;
   location?: T;
+  portrait?: T;
   email?: T;
   socials?:
     | T

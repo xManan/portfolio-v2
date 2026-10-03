@@ -14,8 +14,6 @@ export const person = {
   location: "New Delhi, India",
   // TODO(manan): confirm the email you want people to use.
   email: "mananchawla10@gmail.com",
-  // TODO(manan): drop a square-ish photo in /public and set the path, e.g. "/manan.jpg".
-  portrait: "" as string,
   socials: [
     { label: "GitHub", href: "https://github.com/xManan" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/manan-chawla-01b3bb246" },

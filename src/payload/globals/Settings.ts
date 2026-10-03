@@ -25,8 +25,18 @@ export const Settings: GlobalConfig = {
               type: "row",
               fields: [
                 { name: "role", type: "text", required: true, admin: { width: "50%", description: "e.g. Backend engineer" } },
-                { name: "location", type: "text", admin: { width: "50%", description: "Shown once, in the footer." } },
+                { name: "location", type: "text", admin: { width: "50%", description: "Shown on your photo in the hero and in the footer." } },
               ],
+            },
+            {
+              name: "portrait",
+              label: "Profile photo",
+              type: "upload",
+              relationTo: "media",
+              admin: {
+                description:
+                  "Shown in the hero. A portrait (taller than wide, about 4:5) with your face near the top third works best. Until you add one, a gradient placeholder is shown.",
+              },
             },
             { name: "email", type: "email", required: true },
             {
