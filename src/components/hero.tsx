@@ -7,9 +7,10 @@ import type { Site } from "@/lib/content";
 import { useIntro } from "./intro-context";
 import { Mesh } from "./mesh";
 import { scrollTo } from "./smooth-scroll";
-import { Container, EASE, Heading, PillLink } from "./ui";
+import { ContactButton } from "./contact-form";
+import { Container, EASE, Heading, PillContent, PillLink, pillClass } from "./ui";
 
-export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
+export function Hero({ hero }: { hero: Site["hero"] }) {
   const { done } = useIntro();
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
@@ -66,9 +67,9 @@ export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
             >
               See my work
             </PillLink>
-            <PillLink href={`mailto:${email}`} variant="ghost">
-              Email me
-            </PillLink>
+            <ContactButton className={pillClass("ghost")}>
+              <PillContent variant="ghost">Contact me</PillContent>
+            </ContactButton>
           </motion.div>
         </div>
       </Container>

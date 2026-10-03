@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { Container } from "@/components/ui";
 import { RichText } from "@/components/rich-text";
+import { ContactButton } from "@/components/contact-form";
 import { getNote, getNotes, getSite } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -60,12 +61,9 @@ export default async function NotePage({ params }: Props) {
             <footer className="mt-20 grid gap-6 border-t border-line pt-10 md:grid-cols-2">
               <div>
                 <p className="text-soft">Written by {person.name}</p>
-                <a
-                  href={`mailto:${person.email}?subject=${encodeURIComponent(`Re: ${note.title}`)}`}
-                  className="mt-1 inline-block font-medium text-purple underline-offset-4 hover:underline"
-                >
-                  Reply by email
-                </a>
+                <ContactButton context={note.title} className="mt-1 inline-block font-medium text-purple underline-offset-4 hover:underline">
+                  Reply to this
+                </ContactButton>
               </div>
               {next && next.slug !== slug && (
                 <Link href={`/notes/${next.slug}`} className="group md:text-right">

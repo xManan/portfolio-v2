@@ -18,7 +18,7 @@ export default async function Home() {
     <>
       <Intro quote={site.quote} />
       <main>
-        <Hero hero={site.hero} email={site.person.email} />
+        <Hero hero={site.hero} />
         <Story story={home.story} />
         <Principles principles={home.principles} />
         <Craft craft={home.craft} />

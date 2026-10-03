@@ -4,10 +4,12 @@ import { buildConfig } from "payload";
 import { sqliteAdapter } from "@payloadcms/db-sqlite";
 import { BlocksFeature, CodeBlock, lexicalEditor } from "@payloadcms/richtext-lexical";
 import sharp from "sharp";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 
 import { Users } from "./payload/collections/Users";
 import { Media } from "./payload/collections/Media";
 import { Posts } from "./payload/collections/Posts";
+import { Messages } from "./payload/collections/Messages";
 import { Settings } from "./payload/globals/Settings";
 import { Home } from "./payload/globals/Home";
 
@@ -20,7 +22,7 @@ export default buildConfig({
     meta: { titleSuffix: " | Portfolio dashboard" },
     avatar: "default",
   },
-  collections: [Posts, Media, Users],
+  collections: [Posts, Media, Messages, Users],
   globals: [Settings, Home],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
@@ -38,6 +40,21 @@ export default buildConfig({
     busyTimeout: 5000,
   }),
   sharp,
+  // Email is optional: without SMTP settings, contact messages are only stored in the dashboard.
+  ...(process.env.SMTP_HOST
+    ? {
+        email: nodemailerAdapter({
+          defaultFromAddress: process.env.SMTP_FROM || process.env.SMTP_USER || "",
+          defaultFromName: "Portfolio",
+          transportOptions: {
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT || 587),
+            secure: Number(process.env.SMTP_PORT) === 465,
+            auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+          },
+        }),
+      }
+    : {}),
   typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
   graphQL: { disable: true },
   telemetry: false,

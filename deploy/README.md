@@ -76,6 +76,22 @@ Caddy fetches the HTTPS certificate on its own within a minute.
 
 Open `https://yourdomain.com/admin`. The first visit asks you to create the admin account.
 
+## Contact form messages
+
+Messages from the "Contact me" form appear in the dashboard under **Inbox**.
+To also get an email for each one, add SMTP settings to `.env` and restart:
+
+```bash
+SMTP_HOST=smtp.example.com     # e.g. smtp.gmail.com (with an app password), smtp.resend.com
+SMTP_PORT=587
+SMTP_USER=you@example.com
+SMTP_PASS=your-smtp-password
+SMTP_FROM=you@example.com
+CONTACT_NOTIFY_TO=you@example.com
+```
+
+Replying to the notification email replies straight to the sender.
+
 ## Day to day
 
 - **Editing content:** log in at `/admin`. Saving is live; no deploy.

@@ -74,7 +74,32 @@ export function Rise({ children, delay = 0, className }: { children: React.React
   );
 }
 
-/** Pill button with its icon nested in its own circle (button-in-button). */
+export type PillVariant = "solid" | "ghost";
+
+/** Shared look for pill buttons and links, with the icon nested in its own circle. */
+export const pillClass = (variant: PillVariant = "solid") =>
+  `group inline-flex items-center gap-3 rounded-full py-2 pl-6 pr-2 text-[15px] font-medium transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-bloom)] active:scale-[0.98] ${
+    variant === "solid"
+      ? "bg-ink text-canvas shadow-[0_10px_30px_-10px_rgb(43_34_56/0.5)] hover:bg-purple"
+      : "bg-surface/70 text-ink ring-1 ring-line backdrop-blur hover:bg-surface"
+  }`;
+
+export function PillContent({ children, icon, variant = "solid" }: { children: React.ReactNode; icon?: React.ReactNode; variant?: PillVariant }) {
+  return (
+    <>
+      <span className="whitespace-nowrap">{children}</span>
+      <span
+        className={`grid h-9 w-9 place-items-center rounded-full transition-transform duration-300 ease-[var(--ease-bloom)] group-hover:translate-x-0.5 group-hover:-translate-y-px ${
+          variant === "solid" ? "bg-canvas/15" : "bg-mist"
+        }`}
+      >
+        {icon ?? <ArrowUpRightIcon size={16} weight="bold" />}
+      </span>
+    </>
+  );
+}
+
+/** Pill-shaped link. */
 export function PillLink({
   href,
   children,
@@ -85,31 +110,16 @@ export function PillLink({
 }: {
   href: string;
   children: React.ReactNode;
-  variant?: "solid" | "ghost";
+  variant?: PillVariant;
   external?: boolean;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   icon?: React.ReactNode;
 }) {
-  const solid = variant === "solid";
   return (
-    <a
-      href={href}
-      onClick={onClick}
-      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className={`group inline-flex items-center gap-3 rounded-full py-2 pl-6 pr-2 text-[15px] font-medium transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-bloom)] active:scale-[0.98] ${
-        solid
-          ? "bg-ink text-canvas shadow-[0_10px_30px_-10px_rgb(43_34_56/0.5)] hover:bg-purple"
-          : "bg-surface/70 text-ink ring-1 ring-line backdrop-blur hover:bg-surface"
-      }`}
-    >
-      <span className="whitespace-nowrap">{children}</span>
-      <span
-        className={`grid h-9 w-9 place-items-center rounded-full transition-transform duration-300 ease-[var(--ease-bloom)] group-hover:translate-x-0.5 group-hover:-translate-y-px ${
-          solid ? "bg-canvas/15" : "bg-mist"
-        }`}
-      >
-        {icon ?? <ArrowUpRightIcon size={16} weight="bold" />}
-      </span>
+    <a href={href} onClick={onClick} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} className={pillClass(variant)}>
+      <PillContent variant={variant} icon={icon}>
+        {children}
+      </PillContent>
     </a>
   );
 }

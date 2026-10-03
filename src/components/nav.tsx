@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
+import { ChatCircleDotsIcon } from "@phosphor-icons/react";
+import { useContact } from "./contact-form";
 
 import { useIntro } from "./intro-context";
 import { scrollTo } from "./smooth-scroll";
@@ -17,7 +18,8 @@ const links = [
 ];
 
 /** Floating pill navigation, detached from the top edge. */
-export function Nav({ person }: { person: { name: string; email: string } }) {
+export function Nav({ person }: { person: { name: string } }) {
+  const contact = useContact();
   const { done } = useIntro();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -70,13 +72,15 @@ export function Nav({ person }: { person: { name: string; email: string } }) {
                 {l.label}
               </a>
             ))}
-            <a
-              href={`mailto:${person.email}`}
+            <button
+              type="button"
+              onClick={() => contact.open()}
+              aria-haspopup="dialog"
               className="ml-1 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[14px] font-medium text-canvas transition-colors duration-200 hover:bg-purple"
             >
-              <EnvelopeSimpleIcon size={16} weight="bold" />
-              Email me
-            </a>
+              <ChatCircleDotsIcon size={16} weight="bold" />
+              Contact me
+            </button>
           </div>
 
           <button
@@ -107,11 +111,16 @@ export function Nav({ person }: { person: { name: string; email: string } }) {
             transition={{ duration: 0.35 }}
           >
             <ul className="space-y-2">
-              {[...links, { id: "contact", label: "Email me" }].map((l, i) => (
+              {[...links, { id: "contact", label: "Contact me" }].map((l, i) => (
                 <li key={l.id} className="overflow-hidden">
                   <motion.a
-                    href={l.id === "contact" ? `mailto:${person.email}` : `/#${l.id}`}
-                    onClick={(e) => (l.id === "contact" ? setOpen(false) : go(e, l.id))}
+                    href={`/#${l.id}`}
+                    onClick={(e) => {
+                      if (l.id !== "contact") return go(e, l.id);
+                      e.preventDefault();
+                      setOpen(false);
+                      contact.open();
+                    }}
                     className="block font-display text-5xl font-semibold tracking-[-0.035em]"
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}

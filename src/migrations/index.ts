@@ -1,5 +1,6 @@
 import * as migration_20261003_134413_initial from './20261003_134413_initial';
 import * as migration_20261003_173953_about_objects from './20261003_173953_about_objects';
+import * as migration_20261003_183213_contact_messages from './20261003_183213_contact_messages';
 
 export const migrations = [
   {
@@ -10,6 +11,11 @@ export const migrations = [
   {
     up: migration_20261003_173953_about_objects.up,
     down: migration_20261003_173953_about_objects.down,
-    name: '20261003_173953_about_objects'
+    name: '20261003_173953_about_objects',
+  },
+  {
+    up: migration_20261003_183213_contact_messages.up,
+    down: migration_20261003_183213_contact_messages.down,
+    name: '20261003_183213_contact_messages'
   },
 ];
