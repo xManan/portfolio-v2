@@ -23,7 +23,7 @@ npm run dev              # site on http://localhost:3000, dashboard on /admin
 | What | Where |
 | --- | --- |
 | **All content** (quote, hero, about, principles, career, projects, writing, now, bookshelf) | The dashboard at `/admin` |
-| Starter content used by `npm run seed` | `src/content/defaults.ts`, `content/notes/*.md` |
+| Starter content used by `npm run seed` | `src/content/defaults.ts`, `content/notes/*.md`, `content/objects/` (placeholder images) |
 | Dashboard schema (fields and tabs) | `src/payload/` |
 | Reading content into pages | `src/lib/content.ts` |
 | Design system (palette, type, motion rules) | `design/DESIGN.md` |
@@ -38,7 +38,7 @@ npm run dev              # site on http://localhost:3000, dashboard on /admin
 
 1. **Intro**: the quote writes itself in over a drifting gradient, then the sheet lifts (on every load of the home page; click, key or scroll skips it).
 2. **Hero**: who you are in one line, under a slanted gradient band.
-3. **About**: the paragraph darkens word by word as you read, then four small truths.
+3. **About**: your story in the middle, with cut-out objects from your life floating around it. A line draws itself between them as you scroll; hovering one types out its caption.
 4. **What I believe**: principle cards that stack as you scroll.
 5. **What I do**: capabilities accordion and the tool marquee.
 6. **Where I've been**: career timeline with a filling rail.

@@ -44,7 +44,19 @@ export const getHome = cache(async () => {
     story: {
       heading: h.about.heading,
       lead: h.about.lead,
-      facts: (h.about.facts ?? []).map(({ label, value }) => ({ label, value })),
+      objects: (h.about.objects ?? [])
+        .filter((o) => o.image && typeof o.image === "object" && o.image.url)
+        .map((o) => {
+          const m = o.image as Media;
+          return {
+            src: m.url as string,
+            width: m.width ?? 400,
+            height: m.height ?? 400,
+            label: o.label,
+            caption: o.caption,
+            size: (o.size ?? "medium") as "small" | "medium" | "large",
+          };
+        }),
     },
     principles: {
       heading: h.principles.heading,

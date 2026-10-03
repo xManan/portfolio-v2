@@ -26,18 +26,34 @@ export const Home: GlobalConfig = {
             heading("A little about me"),
             { name: "lead", label: "Your story", type: "textarea", required: true, admin: { rows: 8 } },
             {
-              name: "facts",
-              label: "Small truths (4 look best)",
+              name: "objects",
+              label: "Things that tell your story",
               type: "array",
-              maxRows: 6,
+              maxRows: 8,
+              admin: {
+                description:
+                  "Cut-out photos of real things from your life (transparent PNG or WebP works best). They float around your story; hovering one shows its caption. Order = the path the line draws.",
+              },
               fields: [
                 {
                   type: "row",
                   fields: [
-                    { name: "label", type: "text", required: true, admin: { width: "30%" } },
-                    { name: "value", type: "text", required: true, admin: { width: "70%" } },
+                    { name: "image", type: "upload", relationTo: "media", required: true, admin: { width: "40%" } },
+                    {
+                      name: "size",
+                      type: "select",
+                      defaultValue: "medium",
+                      options: [
+                        { label: "Small", value: "small" },
+                        { label: "Medium", value: "medium" },
+                        { label: "Large", value: "large" },
+                      ],
+                      admin: { width: "20%" },
+                    },
                   ],
                 },
+                { name: "label", type: "text", required: true, admin: { description: "What it is, for screen readers. e.g. My morning chai" } },
+                { name: "caption", type: "text", required: true, admin: { description: "The speech bubble. Short and in your voice." } },
               ],
             },
           ],

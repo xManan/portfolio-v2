@@ -45,13 +45,18 @@ export const story = {
   // care about outside of work.
   lead:
     "I fell in love with computers the way most people fall in love with anything: by breaking one first. What kept me there wasn’t the code. It was the feeling of taking something tangled and making it calm, clear and dependable. I still chase that feeling every day. Outside of work I’m a curious, slightly obsessive learner who believes the best engineers are, first, good people to build with.",
-  facts: [
-    // TODO(manan): four small, true, human things about you.
-    { label: "Mornings", value: "Chai, a notebook, and one hard problem before the inbox." },
-    { label: "Off the keyboard", value: "Long walks, longer playlists, and too many open tabs." },
-    { label: "Currently learning", value: "How databases really work, one paper at a time." },
-    { label: "Quietly proud of", value: "Systems that ran for years without paging anyone." },
-  ],
+  // Floating objects around the story. Files live in content/objects (placeholder
+  // 3D renders); replace them with cut-out photos of your own things in /admin.
+  // TODO(manan): your real things and captions.
+  objects: [
+    { file: "chai.webp", label: "A cup of chai", caption: "Chai first, then the inbox.", size: "medium" },
+    { file: "laptop.webp", label: "My laptop", caption: "It works on my machine. I checked twice.", size: "large" },
+    { file: "headphones.webp", label: "Headphones", caption: "Long walks, longer playlists.", size: "medium" },
+    { file: "books.webp", label: "A stack of books", caption: "Reading the Raft paper. Slowly.", size: "medium" },
+    { file: "pager.webp", label: "A pager", caption: "Proudest when this stays quiet.", size: "small" },
+    { file: "bulb.webp", label: "A light bulb", caption: "100 tabs open, one good idea.", size: "small" },
+    { file: "plant.webp", label: "A potted plant", caption: "Keeping one plant alive. So far.", size: "small" },
+  ] as const,
 };
 
 /** What I believe. Values as a person, not as an engineer. */

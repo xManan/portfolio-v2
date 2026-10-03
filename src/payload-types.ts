@@ -489,10 +489,21 @@ export interface Home {
   about: {
     heading: string;
     lead: string;
-    facts?:
+    /**
+     * Cut-out photos of real things from your life (transparent PNG or WebP works best). They float around your story; hovering one shows its caption. Order = the path the line draws.
+     */
+    objects?:
       | {
+          image: number | Media;
+          size?: ('small' | 'medium' | 'large') | null;
+          /**
+           * What it is, for screen readers. e.g. My morning chai
+           */
           label: string;
-          value: string;
+          /**
+           * The speech bubble. Short and in your voice.
+           */
+          caption: string;
           id?: string | null;
         }[]
       | null;
@@ -657,11 +668,13 @@ export interface HomeSelect<T extends boolean = true> {
     | {
         heading?: T;
         lead?: T;
-        facts?:
+        objects?:
           | T
           | {
+              image?: T;
+              size?: T;
               label?: T;
-              value?: T;
+              caption?: T;
               id?: T;
             };
       };

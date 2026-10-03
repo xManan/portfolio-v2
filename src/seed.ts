@@ -70,7 +70,7 @@ if (!home.about?.lead) {
     slug: "home",
     ...ctx,
     data: {
-      about: { heading: d.story.heading, lead: d.story.lead, facts: d.story.facts },
+      about: { heading: d.story.heading, lead: d.story.lead },
       principles: d.principles,
       craft: {
         heading: d.craft.heading,
@@ -92,6 +92,23 @@ if (!home.about?.lead) {
     },
   });
   payload.logger.info("Seeded home page");
+}
+
+// The floating objects around the About story: upload the placeholder images once.
+const homeNow = await payload.findGlobal({ slug: "home", depth: 0 });
+if (!homeNow.about.objects?.length) {
+  const objects = [];
+  for (const o of d.story.objects) {
+    const media = await payload.create({
+      collection: "media",
+      ...ctx,
+      data: { alt: o.label },
+      filePath: path.resolve(process.cwd(), "content/objects", o.file),
+    });
+    objects.push({ image: media.id, label: o.label, caption: o.caption, size: o.size });
+  }
+  await payload.updateGlobal({ slug: "home", ...ctx, data: { about: { ...homeNow.about, objects } } });
+  payload.logger.info(`Seeded ${objects.length} about objects`);
 }
 
 const { totalDocs } = await payload.count({ collection: "posts" });
