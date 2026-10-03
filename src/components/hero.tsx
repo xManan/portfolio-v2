@@ -31,7 +31,7 @@ export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
       <motion.div
         aria-hidden
         style={{ y: bandY }}
-        className="relative min-h-[clamp(150px,26vh,320px)] flex-1 [clip-path:polygon(0_0,100%_0,100%_100%,0_62%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_40%)]"
+        className="relative min-h-[clamp(150px,26vh,320px)] flex-1 [clip-path:polygon(0_0,100%_0,100%_100%,0_75%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_72%)]"
         initial={{ opacity: 0 }}
         animate={done ? { opacity: 1 } : undefined}
         transition={{ duration: 1.2, ease: EASE }}
@@ -39,7 +39,7 @@ export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
         <Mesh preset="brand" />
       </motion.div>
 
-      <Container className="relative pt-8 md:pt-6">
+      <Container className="relative pt-3 md:pt-2">
         <motion.p {...enter(0.15)} className="mb-5 text-lg text-soft md:text-xl">
           {hero.greeting}
         </motion.p>
