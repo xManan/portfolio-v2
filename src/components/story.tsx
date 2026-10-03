@@ -55,35 +55,33 @@ function curve(points: { x: number; y: number }[]) {
   return d;
 }
 
-/** Words that come into focus one after another, like a thought forming. */
-function Focus({ text, className, delay = 0, as: Tag = "p" }: { text: string; className?: string; delay?: number; as?: "p" | "h3" }) {
-  const reduce = useReducedMotion();
-  const MotionTag = Tag === "h3" ? motion.h3 : motion.p;
-  if (reduce) return <Tag className={className}>{text}</Tag>;
+type Progress = ReturnType<typeof useScroll>["scrollYProgress"];
+
+/** A word that comes into focus out of a blur as the reader scrolls to it. */
+function BlurWord({ children, progress, range }: { children: string; progress: Progress; range: [number, number] }) {
+  const opacity = useTransform(progress, range, [0, 1]);
+  const blur = useTransform(progress, range, [12, 0]);
+  const filter = useTransform(blur, (b) => (b < 0.05 ? "none" : `blur(${b}px)`));
+  const y = useTransform(progress, range, [10, 0]);
   return (
-    <MotionTag
-      className={className}
-      initial="hidden"
-      whileInView="shown"
-      viewport={{ once: true, amount: 0.6, margin: "0px 0px -12% 0px" }}
-      transition={{ staggerChildren: 0.045, delayChildren: delay }}
-      aria-label={text}
-    >
-      {text.split(" ").map((w, i) => (
-        <motion.span
-          key={i}
-          aria-hidden
-          className="mr-[0.25em] inline-block"
-          variants={{
-            hidden: { opacity: 0, filter: "blur(14px)", y: 10 },
-            shown: { opacity: 1, filter: "blur(0px)", y: 0, transition: { duration: 0.9, ease: EASE } },
-          }}
-        >
-          {w}
-        </motion.span>
-      ))}
-    </MotionTag>
+    <motion.span aria-hidden style={{ opacity, filter, y }} className="mr-[0.25em] inline-block">
+      {children}
+    </motion.span>
   );
+}
+
+/** Splits text into scroll-revealed words; `from`/`count` place it in the shared sequence. */
+function BlurText({ text, progress, from, count }: { text: string; progress: Progress; from: number; count: number }) {
+  return text.split(" ").map((w, i) => {
+    // Each word starts a little after the previous one and overlaps it, so
+    // the line resolves like a thought forming rather than a typewriter.
+    const start = ((from + i) / count) * 0.7;
+    return (
+      <BlurWord key={i} progress={progress} range={[start, Math.min(1, start + 0.3)]}>
+        {w}
+      </BlurWord>
+    );
+  });
 }
 
 /** A word that darkens as the reader's scroll passes over it, pacing the paragraph. */
@@ -123,6 +121,15 @@ function Chapter({ obj, index, anchor }: { obj: Obj; index: number; anchor: (el:
   const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [70 * place.d, -70 * place.d]);
   const left = place.side === "left";
 
+  // Text reveal, driven by scroll: nothing shows while the block enters the
+  // screen; it is fully sharp by the time it reaches the upper middle.
+  const words = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: reveal } = useScroll({ target: words, offset: ["start 0.92", "end 0.6"] });
+  const captionWords = obj.caption.split(" ").length;
+  const total = captionWords + (obj.story ? obj.story.split(" ").length : 0);
+  const lead = useTransform(reveal, [0, 0.15], [0, 1]);
+  const tail = useTransform(reveal, [0.85, 1], [0, 1]);
+
   return (
     <li
       ref={row}
@@ -145,9 +152,18 @@ function Chapter({ obj, index, anchor }: { obj: Obj; index: number; anchor: (el:
         >
           {/* The thread is drawn through this point. */}
           <span ref={anchor} aria-hidden className="absolute left-1/2 top-1/2 h-px w-px" />
-          {/* Contact shadow stays put while the object bobs above it */}
+          {/* Contact shadow stays put while the object bobs and rocks above it */}
           <span aria-hidden className="absolute -bottom-5 left-1/2 h-6 w-[70%] -translate-x-1/2 rounded-full bg-ink/20 blur-xl" />
-          <span className="float group block" style={{ "--float-d": `${6 + (index % 3)}s`, "--float-delay": `${-index * 1.1}s` } as React.CSSProperties}>
+          <span
+            className="float-tilt group block"
+            style={
+              {
+                "--float-d": `${6.5 + (index % 3)}s`,
+                "--float-delay": `${-index * 1.3}s`,
+                "--tilt": `${(index % 2 ? -1 : 1) * (2 + (index % 3) * 0.6)}deg`,
+              } as React.CSSProperties
+            }
+          >
             <Image
               src={obj.src}
               width={obj.width}
@@ -163,22 +179,25 @@ function Chapter({ obj, index, anchor }: { obj: Obj; index: number; anchor: (el:
         </motion.div>
       </div>
 
-      {/* Its words, in the empty space beside it */}
-      <div className={`relative z-[46] md:row-start-1 ${place.text} ${left ? "" : "md:text-right"}`}>
-        <span className="mb-4 block font-mono text-sm text-purple">{String(index + 1).padStart(2, "0")}</span>
-        <Focus
-          as="h3"
-          text={obj.caption}
-          className="font-display text-[clamp(1.85rem,3.1vw,2.9rem)] font-semibold leading-[1.08] tracking-[-0.035em]"
-        />
+      {/* Its words, in the empty space beside it. Hidden until the reader
+          scrolls to them, then each word sharpens out of a blur. */}
+      <div ref={words} className={`relative z-[46] md:row-start-1 ${place.text} ${left ? "" : "md:text-right"}`}>
+        <motion.span style={{ opacity: reduce ? 1 : lead }} className="mb-4 block font-mono text-sm text-purple">
+          {String(index + 1).padStart(2, "0")}
+        </motion.span>
+        <h3 aria-label={obj.caption} className="font-display text-[clamp(1.85rem,3.1vw,2.9rem)] font-semibold leading-[1.08] tracking-[-0.035em]">
+          {reduce ? obj.caption : <BlurText text={obj.caption} progress={reveal} from={0} count={total} />}
+        </h3>
         {obj.story && (
-          <Focus
-            text={obj.story}
-            delay={0.25}
-            className={`mt-5 max-w-[42ch] text-lg leading-relaxed text-soft md:text-xl ${left ? "" : "md:ml-auto"}`}
-          />
+          <p aria-label={obj.story} className={`mt-5 max-w-[42ch] text-lg leading-relaxed text-soft md:text-xl ${left ? "" : "md:ml-auto"}`}>
+            {reduce ? obj.story : <BlurText text={obj.story} progress={reveal} from={captionWords} count={total} />}
+          </p>
         )}
-        {obj.credit && <p className="mt-4 text-xs text-soft/70">{obj.credit}</p>}
+        {obj.credit && (
+          <motion.p style={{ opacity: reduce ? 1 : tail }} className="mt-4 text-xs text-soft/70">
+            {obj.credit}
+          </motion.p>
+        )}
       </div>
     </li>
   );

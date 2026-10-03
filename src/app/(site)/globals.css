@@ -129,6 +129,16 @@ html[data-intro="play"] body { overflow: hidden; }
 }
 .float { animation: float var(--float-d, 6s) ease-in-out infinite; animation-delay: var(--float-delay, 0s); }
 
+/* Floating with a gentle rock: lifts while tipping one way, levels out at the
+   top, tips the other way on the way down. --tilt sets how far (and which way). */
+@keyframes float-tilt {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-7px) rotate(var(--tilt, 2.5deg)); }
+  50% { transform: translateY(-12px) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(calc(var(--tilt, 2.5deg) * -1)); }
+}
+.float-tilt { animation: float-tilt var(--float-d, 7s) ease-in-out infinite; animation-delay: var(--float-delay, 0s); }
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -196,5 +206,6 @@ html[data-intro="play"] body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .marquee,
   .float,
+  .float-tilt,
   .mesh > span { animation: none; }
 }
