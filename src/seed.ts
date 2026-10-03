@@ -5,6 +5,10 @@
  *   npm run seed
  *
  * Safe to run more than once: it only writes what is still empty.
+ *
+ *   RESEED_OBJECTS=1 npm run seed
+ *
+ * Replaces the About objects with the current placeholder images, even if set.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -96,7 +100,7 @@ if (!home.about?.lead) {
 
 // The floating objects around the About story: upload the placeholder images once.
 const homeNow = await payload.findGlobal({ slug: "home", depth: 0 });
-if (!homeNow.about.objects?.length) {
+if (!homeNow.about.objects?.length || process.env.RESEED_OBJECTS) {
   const objects = [];
   for (const o of d.story.objects) {
     const media = await payload.create({

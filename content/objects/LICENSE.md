@@ -1,4 +1,4 @@
-Placeholder object renders from Microsoft Fluent Emoji (3D set),
+Placeholder object renders (all but dumbbells.webp) from Microsoft Fluent Emoji (3D set),
 https://github.com/microsoft/fluentui-emoji, used under the MIT License:
 
 MIT License. Copyright (c) Microsoft Corporation.
@@ -12,5 +12,7 @@ conditions: The above copyright notice and this permission notice shall be inclu
 all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+dumbbells.webp is not from that set: it is an original render made for this site.
 
 These are stand-ins. Replace them with photos of your own things in the dashboard.

@@ -49,11 +49,11 @@ export const story = {
   // 3D renders); replace them with cut-out photos of your own things in /admin.
   // TODO(manan): your real things and captions.
   objects: [
-    { file: "chai.webp", label: "A cup of chai", caption: "Chai first, then the inbox.", size: "medium" },
+    { file: "controller.webp", label: "A game controller", caption: "One more match, then bed. Probably.", size: "medium" },
     { file: "laptop.webp", label: "My laptop", caption: "It works on my machine. I checked twice.", size: "large" },
     { file: "headphones.webp", label: "Headphones", caption: "Long walks, longer playlists.", size: "medium" },
     { file: "books.webp", label: "A stack of books", caption: "Reading the Raft paper. Slowly.", size: "medium" },
-    { file: "pager.webp", label: "A pager", caption: "Proudest when this stays quiet.", size: "small" },
+    { file: "dumbbells.webp", label: "A pair of dumbbells", caption: "Lifting things that aren't servers.", size: "small" },
     { file: "bulb.webp", label: "A light bulb", caption: "100 tabs open, one good idea.", size: "small" },
     { file: "plant.webp", label: "A potted plant", caption: "Keeping one plant alive. So far.", size: "small" },
   ] as const,
