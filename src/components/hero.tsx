@@ -25,12 +25,13 @@ export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
   });
 
   return (
-    <section ref={ref} id="top" className="relative flex min-h-[100dvh] items-end overflow-hidden pb-16 pt-28 md:pb-24">
-      {/* Stripe-style slanted gradient band across the top */}
+    <section ref={ref} id="top" className="relative flex min-h-[100dvh] flex-col overflow-hidden pb-14 md:pb-20">
+      {/* Stripe-style slanted band. In normal flow and growing to fill the space
+          above the text, so its lowest edge can never reach the headline. */}
       <motion.div
         aria-hidden
         style={{ y: bandY }}
-        className="absolute inset-x-0 top-0 h-[46%] [clip-path:polygon(0_0,100%_0,100%_100%,0_62%)] md:h-[54%] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_36%)]"
+        className="relative min-h-[clamp(150px,26vh,320px)] flex-1 [clip-path:polygon(0_0,100%_0,100%_100%,0_62%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_40%)]"
         initial={{ opacity: 0 }}
         animate={done ? { opacity: 1 } : undefined}
         transition={{ duration: 1.2, ease: EASE }}
@@ -38,7 +39,7 @@ export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
         <Mesh preset="brand" />
       </motion.div>
 
-      <Container className="relative">
+      <Container className="relative pt-8 md:pt-6">
         <motion.p {...enter(0.15)} className="mb-5 text-lg text-soft md:text-xl">
           {hero.greeting}
         </motion.p>
