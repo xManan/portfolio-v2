@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { now, shelf } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Container, EASE, Heading } from "./ui";
 
 const SPINES = [
@@ -13,7 +13,7 @@ const SPINES = [
   { bg: "#1a1530", fg: "text-white", h: "h-[300px]" },
 ];
 
-export function Now() {
+export function Now({ now, shelf }: { now: HomeContent["now"]; shelf: HomeContent["shelf"] }) {
   const [active, setActive] = useState(0);
   const book = shelf[active];
 

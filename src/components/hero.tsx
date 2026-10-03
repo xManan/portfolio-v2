@@ -3,13 +3,13 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowDownIcon } from "@phosphor-icons/react";
-import { hero, person } from "@/content/site";
+import type { Site } from "@/lib/content";
 import { useIntro } from "./intro-context";
 import { Mesh } from "./mesh";
 import { scrollTo } from "./smooth-scroll";
 import { Container, EASE, Heading, PillLink } from "./ui";
 
-export function Hero() {
+export function Hero({ hero, email }: { hero: Site["hero"]; email: string }) {
   const { done } = useIntro();
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
@@ -65,7 +65,7 @@ export function Hero() {
             >
               See my work
             </PillLink>
-            <PillLink href={`mailto:${person.email}`} variant="ghost">
+            <PillLink href={`mailto:${email}`} variant="ghost">
               Email me
             </PillLink>
           </motion.div>

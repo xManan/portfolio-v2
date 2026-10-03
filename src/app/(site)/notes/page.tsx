@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
-import { Nav } from "@/components/nav";
 import { NoteRow } from "@/components/writing";
 import { Container } from "@/components/ui";
-import { formatDate, getNotes } from "@/lib/notes";
+import { getNotes } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Writing",
   description: "Things I'm learning, building and figuring out, written down so I understand them better.",
 };
 
-export default function NotesIndex() {
-  const notes = getNotes().map((n) => ({ ...n, displayDate: formatDate(n.date) }));
+export default async function NotesIndex() {
+  const notes = await getNotes();
   return (
     <>
-      <Nav />
       <main className="relative min-h-[100dvh] pb-32 pt-32 md:pt-40">
         <div
           aria-hidden

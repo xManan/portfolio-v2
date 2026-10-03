@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { thinking } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Container, Heading } from "./ui";
 
 const TINTS = [
@@ -17,7 +17,7 @@ const TINTS = [
  * A real sequence, so it reads left to right: vertical scroll pans the track
  * while the section is pinned. Small screens and reduced motion get a stack.
  */
-export function Thinking() {
+export function Thinking({ thinking }: { thinking: HomeContent["thinking"] }) {
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -33,7 +33,7 @@ export function Thinking() {
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0.08, 0.92], [0, -distance]);
 
-  const card = (s: (typeof thinking.steps)[number], i: number) => (
+  const card = (s: HomeContent["thinking"]["steps"][number], i: number) => (
     <article
       key={s.title}
       className="flex h-full w-full shrink-0 flex-col justify-between rounded-[var(--radius-card)] bg-surface p-8 shadow-[var(--shadow-soft)] md:w-[min(28rem,70vw)] md:p-10"

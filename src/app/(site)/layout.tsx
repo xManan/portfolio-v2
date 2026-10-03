@@ -3,20 +3,22 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "@fontsource-variable/schibsted-grotesk/index.css";
 import "./globals.css";
-import { person, hero } from "@/content/site";
+import { getSite } from "@/lib/content";
+import { Nav } from "@/components/nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { IntroProvider } from "@/components/intro-context";
 
-export const metadata: Metadata = {
-  title: { default: `${person.name}, ${person.role.toLowerCase()}`, template: `%s | ${person.name}` },
-  description: hero.intro,
-  openGraph: {
-    title: `${person.name}, ${person.role.toLowerCase()}`,
+export async function generateMetadata(): Promise<Metadata> {
+  const { person, hero } = await getSite();
+  const title = `${person.name}, ${person.role.toLowerCase()}`;
+  return {
+    title: { default: title, template: `%s | ${person.name}` },
     description: hero.intro,
-    type: "website",
-  },
-  icons: { icon: "/icon.svg" },
-};
+    openGraph: { title, description: hero.intro, type: "website" },
+    icons: { icon: "/icon.svg" },
+    metadataBase: process.env.NEXT_PUBLIC_SERVER_URL ? new URL(process.env.NEXT_PUBLIC_SERVER_URL) : undefined,
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#f6f5fa",
@@ -26,7 +28,8 @@ export const viewport: Viewport = {
 // a flash of the intro overlay.
 const introScript = `try{document.documentElement.dataset.intro=sessionStorage.getItem("intro-seen")?"seen":"play"}catch(e){document.documentElement.dataset.intro="seen"}`;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { person } = await getSite();
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
       <head>
@@ -34,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <IntroProvider>
+          <Nav person={person} />
           <SmoothScroll>{children}</SmoothScroll>
         </IntroProvider>
         <div className="grain" aria-hidden />

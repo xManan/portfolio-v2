@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { quote } from "@/content/site";
+
 import { useIntro } from "./intro-context";
 import { Mesh } from "./mesh";
 import { EASE, EASE_CURTAIN } from "./ui";
@@ -15,7 +15,7 @@ const WORD_STAGGER = 0.07;
  * holds for a breath, then the whole sheet lifts to reveal the page.
  * Any click, key or scroll lifts it early.
  */
-export function Intro() {
+export function Intro({ quote }: { quote: { text: string; author: string } }) {
   const { done, finish } = useIntro();
   const reduce = useReducedMotion();
   const [ready, setReady] = useState(false);

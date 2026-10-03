@@ -2,10 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { journey } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Container, Heading } from "./ui";
 
-export function Journey() {
+export function Journey({ journey }: { journey: HomeContent["journey"] }) {
   const ref = useRef<HTMLOListElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.7", "end 0.6"] });
   const fill = useSpring(scrollYProgress, { stiffness: 80, damping: 24 });

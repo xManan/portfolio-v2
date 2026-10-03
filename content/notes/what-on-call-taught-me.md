@@ -5,7 +5,7 @@ summary: Incidents are rarely about the code. They're about the people on both s
 tags: [people, reliability]
 ---
 
-> Another sample note. Swap it for a real story, the personal ones are the ones people remember.
+> Another sample article. Swap it for a real story, the personal ones are the ones people remember.
 
 The first time my phone went off at 2:47am, I thought the hard part would be finding the bug. It wasn't. The hard part was remembering that somewhere, a real person couldn't do the thing they needed to do, and that the engineer who wrote the bug was probably asleep, and probably me.
 

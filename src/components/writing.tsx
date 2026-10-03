@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
-import type { NoteMeta } from "@/lib/notes";
+import type { NoteMeta } from "@/lib/content";
 import { Mesh } from "./mesh";
 import { Container, Heading } from "./ui";
 
-type Item = NoteMeta & { displayDate: string };
+type Item = NoteMeta;
 
 export function NoteRow({ note }: { note: Item }) {
   return (
-    <Link href={`/notes/${note.slug}/`} className="group block border-b border-line py-7 first:border-t">
+    <Link href={`/notes/${note.slug}`} className="group block border-b border-line py-7 first:border-t">
       <p className="text-sm text-soft">
         {note.displayDate}, {note.readingTime} min read
       </p>
@@ -32,7 +32,7 @@ export function Writing({ notes }: { notes: Item[] }) {
 
         <div className="grid gap-10 md:grid-cols-12 md:gap-10">
           <Link
-            href={`/notes/${featured.slug}/`}
+            href={`/notes/${featured.slug}`}
             className="group relative flex min-h-[380px] flex-col justify-between overflow-hidden rounded-[var(--radius-card)] p-8 md:col-span-7 md:min-h-[460px] md:p-12"
           >
             <Mesh preset="sun" />
@@ -58,7 +58,7 @@ export function Writing({ notes }: { notes: Item[] }) {
               <NoteRow key={n.slug} note={n} />
             ))}
             <Link
-              href="/notes/"
+              href="/notes"
               className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-surface px-5 py-2.5 text-sm font-medium shadow-[var(--shadow-soft)] ring-1 ring-line transition-colors hover:text-purple"
             >
               Read all writing

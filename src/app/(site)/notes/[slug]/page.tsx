@@ -2,34 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr";
-import { Nav } from "@/components/nav";
 import { Container } from "@/components/ui";
-import { formatDate, getNote, getNotes } from "@/lib/notes";
-import { person } from "@/content/site";
+import { RichText } from "@/components/rich-text";
+import { getNote, getNotes, getSite } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return getNotes().map((n) => ({ slug: n.slug }));
+export async function generateStaticParams() {
+  return (await getNotes()).map((n) => ({ slug: n.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const note = getNote((await params).slug);
+  const note = await getNote((await params).slug);
   return note ? { title: note.title, description: note.summary } : {};
 }
 
 export default async function NotePage({ params }: Props) {
   const { slug } = await params;
-  const note = getNote(slug);
+  const [note, all, { person }] = await Promise.all([getNote(slug), getNotes(), getSite()]);
   if (!note) notFound();
 
-  const all = getNotes();
   const i = all.findIndex((n) => n.slug === slug);
   const next = all[i + 1] ?? all[0];
 
   return (
     <>
-      <Nav />
       <main className="relative min-h-[100dvh] pb-32 pt-32 md:pt-40">
         <div
           aria-hidden
@@ -38,12 +35,12 @@ export default async function NotePage({ params }: Props) {
         />
         <Container className="relative">
           <article className="mx-auto max-w-[68ch]">
-            <Link href="/notes/" className="inline-flex items-center gap-2 text-soft hover:text-purple">
+            <Link href="/notes" className="inline-flex items-center gap-2 text-soft hover:text-purple">
               <ArrowLeftIcon size={16} weight="bold" /> All writing
             </Link>
             <header className="mt-10 pb-10">
               <p className="text-soft">
-                {formatDate(note.date)}, {note.readingTime} min read
+                {note.displayDate}, {note.readingTime} min read
               </p>
               <h1 className="mt-4 font-display text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.04em]">{note.title}</h1>
               {note.summary && <p className="mt-5 text-xl leading-relaxed text-soft">{note.summary}</p>}
@@ -58,7 +55,7 @@ export default async function NotePage({ params }: Props) {
               )}
             </header>
 
-            <div className="prose-note" dangerouslySetInnerHTML={{ __html: note.html }} />
+            <RichText data={note.content} />
 
             <footer className="mt-20 grid gap-6 border-t border-line pt-10 md:grid-cols-2">
               <div>
@@ -71,7 +68,7 @@ export default async function NotePage({ params }: Props) {
                 </a>
               </div>
               {next && next.slug !== slug && (
-                <Link href={`/notes/${next.slug}/`} className="group md:text-right">
+                <Link href={`/notes/${next.slug}`} className="group md:text-right">
                   <span className="inline-flex items-center gap-2 text-soft">
                     Next <ArrowRightIcon size={14} weight="bold" />
                   </span>

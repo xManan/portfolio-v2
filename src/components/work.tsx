@@ -3,12 +3,12 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
-import { projects } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Cover } from "./cover";
 import { Container, EASE, Heading } from "./ui";
 
 /** Project rows. On desktop a cover follows the cursor over the hovered row. */
-export function Work() {
+export function Work({ projects }: { projects: HomeContent["projects"] }) {
   const list = useRef<HTMLUListElement>(null);
   const reduce = useReducedMotion();
   const [active, setActive] = useState<number | null>(null);

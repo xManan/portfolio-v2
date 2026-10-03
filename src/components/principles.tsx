@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { principles } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Mesh, type MeshPreset } from "./mesh";
 import { Container, Heading } from "./ui";
 
@@ -49,7 +49,7 @@ function Card({
   );
 }
 
-export function Principles() {
+export function Principles({ principles }: { principles: HomeContent["principles"] }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const items = principles.items;

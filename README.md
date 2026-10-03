@@ -2,26 +2,37 @@
 
 Personal site of Manan Chawla — built with Next.js (static export), Tailwind CSS v4 and Motion.
 
-## Run it
+## How it works
+
+- **Next.js** renders every page on the server and caches the result, so visitors get static HTML.
+- **Payload CMS** runs inside the same app. The dashboard is at `/admin`; content is stored in SQLite.
+- Saving anything in the dashboard purges the cached pages, so changes are live on the next visit. No rebuild or deploy.
+
+## Run it locally
 
 ```bash
+cp .env.example .env     # set PAYLOAD_SECRET to any long random string
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # static site in ./out — deploy anywhere
+npm run migrate          # create the database
+npm run seed             # fill it with starter content
+npm run dev              # site on http://localhost:3000, dashboard on /admin
 ```
 
 ## Where things live
 
 | What | Where |
 | --- | --- |
-| **All personal copy** (quote, story, principles, career, projects, now, bookshelf) | `src/content/site.ts` |
-| Writing | `content/notes/*.md` (front-matter: `title`, `date`, `summary`, `tags`, `draft`) |
+| **All content** (quote, hero, about, principles, career, projects, writing, now, bookshelf) | The dashboard at `/admin` |
+| Starter content used by `npm run seed` | `src/content/defaults.ts`, `content/notes/*.md` |
+| Dashboard schema (fields and tabs) | `src/payload/` |
+| Reading content into pages | `src/lib/content.ts` |
 | Design system (palette, type, motion rules) | `design/DESIGN.md` |
-| Tokens and grain | `src/app/globals.css` (`@theme`) |
-| Sections | `src/components/*.tsx`, assembled in `src/app/page.tsx` |
+| Sections | `src/components/*.tsx` |
+| Deploying to a VPS | `deploy/README.md` |
 
-Search for `TODO(manan)` to find everything that still needs your real words.
-Give projects an `image` (a path in `/public`) to replace their gradient covers.
+**Changing the schema** (adding a field): edit `src/payload/`, then run
+`npm run migrate:create -- describe-change` and commit the new file in `src/migrations/`.
+`deploy.sh` applies it on the server.
 
 ## The page, top to bottom
 

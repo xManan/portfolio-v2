@@ -1,0 +1,22 @@
+# systemd unit: keeps the site running and restarts it on crash or reboot.
+# Install:  sudo cp deploy/portfolio.service /etc/systemd/system/
+#           sudo systemctl daemon-reload && sudo systemctl enable --now portfolio
+[Unit]
+Description=Portfolio (Next.js + Payload)
+After=network.target
+
+[Service]
+Type=simple
+User=portfolio
+WorkingDirectory=/srv/portfolio
+EnvironmentFile=/srv/portfolio/.env
+Environment=NODE_ENV=production
+# Only listen locally; Caddy is the public entry point.
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3000
+Restart=always
+RestartSec=3
+# Keep memory in check on small VPSes.
+Environment=NODE_OPTIONS=--max-old-space-size=512
+
+[Install]
+WantedBy=multi-user.target

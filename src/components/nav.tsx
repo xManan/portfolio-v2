@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
-import { person } from "@/content/site";
+
 import { useIntro } from "./intro-context";
 import { scrollTo } from "./smooth-scroll";
 import { EASE } from "./ui";
@@ -17,7 +17,7 @@ const links = [
 ];
 
 /** Floating pill navigation, detached from the top edge. */
-export function Nav() {
+export function Nav({ person }: { person: { name: string; email: string } }) {
   const { done } = useIntro();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);

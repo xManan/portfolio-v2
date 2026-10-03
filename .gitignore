@@ -5,3 +5,8 @@ next-env.d.ts
 *.tsbuildinfo
 .DS_Store
 .env*.local
+# Payload data (lives on the server, not in git)
+/data/
+/media/
+.env
+/backups/

@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { PlusIcon, StarFourIcon } from "@phosphor-icons/react";
-import { craft } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Container, EASE, Heading } from "./ui";
 
-export function Craft() {
+export function Craft({ craft }: { craft: HomeContent["craft"] }) {
   const [open, setOpen] = useState(0);
 
   return (

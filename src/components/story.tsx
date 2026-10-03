@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { story } from "@/content/site";
+import type { HomeContent } from "@/lib/content";
 import { Container, Heading } from "./ui";
 
 /** A word that darkens as the reader's scroll passes over it, pacing the paragraph. */
@@ -22,7 +22,7 @@ const TILES = [
   { span: "md:col-span-4", bg: "linear-gradient(135deg, #1a1530, #3a1f9d)", fg: "text-white", sub: "text-white/65" },
 ];
 
-export function Story() {
+export function Story({ story }: { story: HomeContent["story"] }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.5"] });

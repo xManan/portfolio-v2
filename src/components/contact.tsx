@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { ArrowUpIcon, CheckIcon, CopyIcon } from "@phosphor-icons/react";
-import { contact, person } from "@/content/site";
+import type { Site } from "@/lib/content";
 import { Mesh } from "./mesh";
 import { scrollTo } from "./smooth-scroll";
 import { Container, Heading, PillLink } from "./ui";
 
-export function Contact() {
+export function Contact({ contact, person }: { contact: Site["contact"]; person: Site["person"] }) {
   const [copied, setCopied] = useState(false);
 
   const copy = async () => {
