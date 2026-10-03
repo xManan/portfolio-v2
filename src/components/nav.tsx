@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChatCircleDotsIcon } from "@phosphor-icons/react";
-import { useContact } from "./contact-form";
+import { HandWavingIcon } from "@phosphor-icons/react";
+import { ConnectButton, socialIcon, useLinks } from "./connect";
 
 import { useIntro } from "./intro-context";
 import { scrollTo } from "./smooth-scroll";
@@ -19,7 +19,7 @@ const links = [
 
 /** Floating pill navigation, detached from the top edge. */
 export function Nav({ person }: { person: { name: string } }) {
-  const contact = useContact();
+  const { socials } = useLinks();
   const { done } = useIntro();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -72,15 +72,13 @@ export function Nav({ person }: { person: { name: string } }) {
                 {l.label}
               </a>
             ))}
-            <button
-              type="button"
-              onClick={() => contact.open()}
-              aria-haspopup="dialog"
-              className="ml-1 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[14px] font-medium text-canvas transition-colors duration-200 hover:bg-purple"
+            <ConnectButton
+              align="end"
+              className="ml-1 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[14px] font-medium text-canvas transition-colors duration-200 hover:bg-purple aria-expanded:bg-purple"
             >
-              <ChatCircleDotsIcon size={16} weight="bold" />
-              Contact me
-            </button>
+              <HandWavingIcon size={16} weight="bold" />
+              Connect
+            </ConnectButton>
           </div>
 
           <button
@@ -111,16 +109,11 @@ export function Nav({ person }: { person: { name: string } }) {
             transition={{ duration: 0.35 }}
           >
             <ul className="space-y-2">
-              {[...links, { id: "contact", label: "Contact me" }].map((l, i) => (
+              {links.map((l, i) => (
                 <li key={l.id} className="overflow-hidden">
                   <motion.a
                     href={`/#${l.id}`}
-                    onClick={(e) => {
-                      if (l.id !== "contact") return go(e, l.id);
-                      e.preventDefault();
-                      setOpen(false);
-                      contact.open();
-                    }}
+                    onClick={(e) => go(e, l.id)}
                     className="block font-display text-5xl font-semibold tracking-[-0.035em]"
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}
@@ -131,6 +124,34 @@ export function Nav({ person }: { person: { name: string } }) {
                 </li>
               ))}
             </ul>
+            {socials.length > 0 && (
+              <motion.div
+                className="mt-12 border-t border-line pt-6"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + links.length * 0.06, duration: 0.6, ease: EASE }}
+              >
+                <p className="text-sm text-soft">Connect with me</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {socials.map((s) => {
+                    const SocialIcon = socialIcon(s.href);
+                    return (
+                      <li key={s.href}>
+                        <a
+                          href={s.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full bg-ink py-2.5 pl-3.5 pr-4.5 font-medium text-canvas"
+                        >
+                          <SocialIcon size={18} weight="fill" />
+                          {s.label}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

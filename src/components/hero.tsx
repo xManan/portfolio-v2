@@ -7,7 +7,7 @@ import type { Site } from "@/lib/content";
 import { useIntro } from "./intro-context";
 import { Mesh } from "./mesh";
 import { scrollTo } from "./smooth-scroll";
-import { ContactButton } from "./contact-form";
+import { ConnectButton } from "./connect";
 import { Container, EASE, Heading, PillContent, PillLink, pillClass } from "./ui";
 
 export function Hero({ hero }: { hero: Site["hero"] }) {
@@ -67,9 +67,9 @@ export function Hero({ hero }: { hero: Site["hero"] }) {
             >
               See my work
             </PillLink>
-            <ContactButton className={pillClass("ghost")}>
-              <PillContent variant="ghost">Contact me</PillContent>
-            </ContactButton>
+            <ConnectButton className={pillClass("ghost")} align="end">
+              <PillContent variant="ghost">Connect with me</PillContent>
+            </ConnectButton>
           </motion.div>
         </div>
       </Container>

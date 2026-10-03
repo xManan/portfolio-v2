@@ -1,26 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpIcon, CheckIcon, CopyIcon } from "@phosphor-icons/react";
+import { ArrowUpIcon } from "@phosphor-icons/react";
 import type { Site } from "@/lib/content";
 import { Mesh } from "./mesh";
 import { scrollTo } from "./smooth-scroll";
-import { ContactButton } from "./contact-form";
+import { ConnectButton } from "./connect";
 import { Container, Heading, PillContent, pillClass } from "./ui";
 
 export function Contact({ contact, person }: { contact: Site["contact"]; person: Site["person"] }) {
-  const [copied, setCopied] = useState(false);
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(person.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      window.prompt("Copy my email address:", person.email);
-    }
-  };
-
   return (
     <footer id="contact" className="relative overflow-hidden pt-16 md:pt-24">
       <Container>
@@ -30,16 +17,9 @@ export function Contact({ contact, person }: { contact: Site["contact"]; person:
             <Heading className="max-w-[14ch] text-[clamp(2.75rem,7vw,6rem)] leading-[0.98] text-white">{contact.heading}</Heading>
             <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-white/85 md:text-xl">{contact.body}</p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <ContactButton className={pillClass("solid")}>
-                <PillContent>Contact me</PillContent>
-              </ContactButton>
-              <button
-                onClick={copy}
-                className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-3.5 text-[15px] font-medium text-white ring-1 ring-white/30 backdrop-blur transition-[background-color,transform] duration-200 hover:bg-white/25 active:scale-[0.98]"
-              >
-                {copied ? <CheckIcon size={16} weight="bold" /> : <CopyIcon size={16} weight="bold" />}
-                {copied ? "Copied" : "Copy address"}
-              </button>
+              <ConnectButton className={pillClass("solid")}>
+                <PillContent>Connect with me</PillContent>
+              </ConnectButton>
             </div>
           </div>
         </div>

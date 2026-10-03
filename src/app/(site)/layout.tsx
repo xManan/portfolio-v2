@@ -5,7 +5,7 @@ import "@fontsource-variable/schibsted-grotesk/index.css";
 import "./globals.css";
 import { getSite } from "@/lib/content";
 import { Nav } from "@/components/nav";
-import { ContactProvider } from "@/components/contact-form";
+import { ConnectProvider } from "@/components/connect";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { IntroProvider } from "@/components/intro-context";
 
@@ -39,10 +39,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <IntroProvider>
-          <ContactProvider firstName={person.firstName}>
+          <ConnectProvider email={person.email} socials={person.socials}>
             <Nav person={person} />
             <SmoothScroll>{children}</SmoothScroll>
-          </ContactProvider>
+          </ConnectProvider>
         </IntroProvider>
         <div className="grain" aria-hidden />
       </body>
