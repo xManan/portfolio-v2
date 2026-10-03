@@ -128,7 +128,6 @@ function Chapter({ obj, index, anchor }: { obj: Obj; index: number; anchor: (el:
   const captionWords = obj.caption.split(" ").length;
   const total = captionWords + (obj.story ? obj.story.split(" ").length : 0);
   const lead = useTransform(reveal, [0, 0.15], [0, 1]);
-  const tail = useTransform(reveal, [0.85, 1], [0, 1]);
 
   return (
     <li
@@ -192,11 +191,6 @@ function Chapter({ obj, index, anchor }: { obj: Obj; index: number; anchor: (el:
           <p aria-label={obj.story} className={`mt-5 max-w-[42ch] text-lg leading-relaxed text-soft md:text-xl ${left ? "" : "md:ml-auto"}`}>
             {reduce ? obj.story : <BlurText text={obj.story} progress={reveal} from={captionWords} count={total} />}
           </p>
-        )}
-        {obj.credit && (
-          <motion.p style={{ opacity: reduce ? 1 : tail }} className="mt-4 text-xs text-soft/70">
-            {obj.credit}
-          </motion.p>
         )}
       </div>
     </li>

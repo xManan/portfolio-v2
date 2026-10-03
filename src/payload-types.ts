@@ -508,10 +508,6 @@ export interface Home {
            * One or two sentences under it: what this thing says about you.
            */
           story?: string | null;
-          /**
-           * Only if the photo isn't yours, e.g. Photo: Jane Doe, CC BY 4.0
-           */
-          credit?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -674,7 +670,6 @@ export interface HomeSelect<T extends boolean = true> {
               label?: T;
               caption?: T;
               story?: T;
-              credit?: T;
               id?: T;
             };
       };

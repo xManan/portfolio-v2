@@ -4,6 +4,7 @@ import * as migration_20261003_183213_contact_messages from './20261003_183213_c
 import * as migration_20261003_184234_remove_contact_messages from './20261003_184234_remove_contact_messages';
 import * as migration_20261003_194106_remove_approach_section from './20261003_194106_remove_approach_section';
 import * as migration_20261003_195610_about_object_stories from './20261003_195610_about_object_stories';
+import * as migration_20261003_203138_remove_photo_credit from './20261003_203138_remove_photo_credit';
 
 export const migrations = [
   {
@@ -34,6 +35,11 @@ export const migrations = [
   {
     up: migration_20261003_195610_about_object_stories.up,
     down: migration_20261003_195610_about_object_stories.down,
-    name: '20261003_195610_about_object_stories'
+    name: '20261003_195610_about_object_stories',
+  },
+  {
+    up: migration_20261003_203138_remove_photo_credit.up,
+    down: migration_20261003_203138_remove_photo_credit.down,
+    name: '20261003_203138_remove_photo_credit'
   },
 ];

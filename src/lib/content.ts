@@ -55,7 +55,6 @@ export const getHome = cache(async () => {
             label: o.label,
             caption: o.caption,
             story: o.story ?? "",
-            credit: o.credit ?? "",
             size: (o.size ?? "medium") as "small" | "medium" | "large",
           };
         }),

@@ -56,7 +56,6 @@ export const story = {
       caption: "It works on my machine. I checked twice.",
       story: "Where the day job happens: APIs, queues, databases and the quiet work of making them boring. There is always a terminal open.",
       size: "large",
-      credit: "Photo: KKPCW, CC BY-SA 4.0",
     },
     {
       file: "controller.webp",
@@ -64,7 +63,6 @@ export const story = {
       caption: "One more match, then bed. Probably.",
       story: "Games taught me systems thinking before I had a name for it: every rule leans on every other rule. I still play most evenings, mostly co-op, always too late.",
       size: "medium",
-      credit: "Photo: Viper polo, CC BY-SA 4.0",
     },
     {
       file: "headphones.webp",
@@ -72,7 +70,6 @@ export const story = {
       caption: "Long walks, longer playlists.",
       story: "My best ideas rarely show up at the desk. I walk, I listen, and whatever I was stuck on usually comes loose somewhere around the second album.",
       size: "medium",
-      credit: "Photo: Arne, CC BY-SA 3.0 DE",
     },
     {
       file: "dumbbells.webp",
@@ -80,7 +77,6 @@ export const story = {
       caption: "Lifting things that aren't servers.",
       story: "Training keeps my head clear, and it's the most honest feedback loop I know: show up consistently and the numbers move.",
       size: "medium",
-      credit: "Photo: Ericdumbbell, CC BY-SA 4.0",
     },
     {
       file: "bulb.webp",
@@ -88,7 +84,6 @@ export const story = {
       caption: "100 tabs open, one good idea.",
       story: "Curious to a fault. Side projects start as a question at midnight and end, sometimes, as something useful.",
       size: "small",
-      credit: "Photo: Liebeskind, CC BY-SA 4.0",
     },
     {
       file: "plant.webp",
@@ -96,7 +91,6 @@ export const story = {
       caption: "Keeping one plant alive. So far.",
       story: "Small, steady care beats heroics, for plants and for production systems. This one is proof I'm learning.",
       size: "small",
-      credit: "Photo: Petr Smagin, CC BY 4.0",
     },
   ] as const,
 };

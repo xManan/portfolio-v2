@@ -26,13 +26,14 @@ export function Hero({ hero }: { hero: Site["hero"] }) {
   });
 
   return (
-    <section ref={ref} id="top" className="relative flex min-h-[100dvh] flex-col overflow-hidden pb-14 md:pb-20">
-      {/* Stripe-style slanted band. In normal flow and growing to fill the space
-          above the text, so its lowest edge can never reach the headline. */}
+    <section ref={ref} id="top" className="relative grid min-h-[100dvh] grid-rows-[1fr_auto_1fr] overflow-hidden">
+      {/* Stripe-style slanted band. It fills the top row of a 1fr / text / 1fr
+          grid: the text sits in the vertical middle of the screen and the band's
+          lowest edge can never reach it. */}
       <motion.div
         aria-hidden
         style={{ y: bandY }}
-        className="relative min-h-[clamp(150px,26vh,320px)] flex-1 [clip-path:polygon(0_0,100%_0,100%_100%,0_75%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_72%)]"
+        className="relative min-h-[120px] [clip-path:polygon(0_0,100%_0,100%_100%,0_70%)] md:[clip-path:polygon(0_0,100%_0,100%_100%,0_66%)]"
         initial={{ opacity: 0 }}
         animate={done ? { opacity: 1 } : undefined}
         transition={{ duration: 1.2, ease: EASE }}
@@ -40,7 +41,7 @@ export function Hero({ hero }: { hero: Site["hero"] }) {
         <Mesh preset="brand" />
       </motion.div>
 
-      <Container className="relative pt-3 md:pt-2">
+      <Container className="relative w-full py-8 md:py-10">
         <motion.p {...enter(0.15)} className="mb-5 text-lg text-soft md:text-xl">
           {hero.greeting}
         </motion.p>
@@ -73,6 +74,9 @@ export function Hero({ hero }: { hero: Site["hero"] }) {
           </motion.div>
         </div>
       </Container>
+
+      {/* Matches the band's row so the text stays centred */}
+      <div aria-hidden />
     </section>
   );
 }

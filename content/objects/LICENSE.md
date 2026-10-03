@@ -11,6 +11,5 @@ things in the dashboard (Home → About → objects).
 | bulb.webp | [LEDfilamentLightBulbE27.jpg](https://commons.wikimedia.org/wiki/File:LEDfilamentLightBulbE27.jpg) | Liebeskind | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) |
 | plant.webp | [Plant tangerine in a pot.jpg](https://commons.wikimedia.org/wiki/File:Plant_tangerine_in_a_pot.jpg) | Petr Smagin | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 
-All of them need their credit wherever they are shown. The site shows it in
-small type under each photo, from the object's "Photo credit" field. When you
-swap in a photo of your own, clear that field.
+The site does not show these credits. Before the site goes live, replace these
+placeholders with photos of your own (Home → About → objects in the dashboard).
