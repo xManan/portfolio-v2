@@ -2,26 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { EnvelopeSimpleIcon } from "@phosphor-icons/react";
 import { person } from "@/content/site";
 import { useIntro } from "./intro-context";
 import { scrollTo } from "./smooth-scroll";
-import { EASE_OUT } from "./ui";
+import { EASE } from "./ui";
 
 const links = [
-  { id: "person", label: "About" },
-  { id: "craft", label: "Craft" },
+  { id: "about", label: "About" },
   { id: "work", label: "Work" },
-  { id: "notes", label: "Notes" },
-  { id: "contact", label: "Contact" },
+  { id: "writing", label: "Writing" },
 ];
 
+/** Floating pill navigation, detached from the top edge. */
 export function Nav() {
   const { done } = useIntro();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const onHome = pathname === "/";
+
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
   const go = (e: React.MouseEvent, id: string) => {
     setOpen(false);
@@ -33,14 +37,15 @@ export function Nav() {
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-50"
-        initial={{ y: -40, opacity: 0 }}
+        className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
+        initial={{ y: -24, opacity: 0 }}
         animate={done ? { y: 0, opacity: 1 } : undefined}
-        transition={{ duration: 1, delay: 0.6, ease: EASE_OUT }}
+        transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
       >
-        {/* Soft fade so the bar stays legible over big headlines */}
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-canvas via-canvas/70 to-transparent" />
-        <div className="relative mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10">
+        <nav
+          aria-label="Main"
+          className="flex w-full max-w-[720px] items-center justify-between gap-2 rounded-full bg-surface/75 p-1.5 shadow-[var(--shadow-soft)] ring-1 ring-line backdrop-blur-xl md:w-max md:max-w-none"
+        >
           <Link
             href="/"
             onClick={(e) => {
@@ -49,68 +54,74 @@ export function Nav() {
                 scrollTo(0);
               }
             }}
-            className="group flex items-center gap-2 text-sm font-medium tracking-tight"
+            className="rounded-full px-4 py-2 font-display text-[15px] font-semibold tracking-tight"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ember opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-ember" />
-            </span>
-            <span>{person.name}</span>
-            <span className="hidden text-muted transition-colors group-hover:text-ink sm:inline">— {person.role}</span>
+            {person.name}
           </Link>
 
-          <nav className="hidden items-center gap-1 rounded-full border border-line bg-canvas/60 p-1 backdrop-blur-xl md:flex">
+          <div className="hidden items-center md:flex">
             {links.map((l) => (
               <a
                 key={l.id}
                 href={`/#${l.id}`}
                 onClick={(e) => go(e, l.id)}
-                className="rounded-full px-4 py-1.5 text-[13px] text-muted transition-colors hover:bg-ink/[0.06] hover:text-ink"
+                className="rounded-full px-4 py-2 text-[14px] text-soft transition-colors duration-200 hover:bg-lavender/50 hover:text-ink"
               >
                 {l.label}
               </a>
             ))}
-          </nav>
+            <a
+              href={`mailto:${person.email}`}
+              className="ml-1 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-[14px] font-medium text-canvas transition-colors duration-200 hover:bg-orchid"
+            >
+              <EnvelopeSimpleIcon size={16} weight="bold" />
+              Email me
+            </a>
+          </div>
 
           <button
             onClick={() => setOpen((o) => !o)}
-            className="rounded-full border border-line bg-canvas/60 px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.2em] backdrop-blur-xl md:hidden"
+            className="relative grid h-10 w-10 place-items-center rounded-full bg-lavender/60 md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
           >
-            {open ? "Close" : "Menu"}
+            <span
+              className={`absolute h-[1.5px] w-4 rounded bg-ink transition-transform duration-300 ease-[var(--ease-bloom)] ${open ? "rotate-45" : "-translate-y-[3px]"}`}
+            />
+            <span
+              className={`absolute h-[1.5px] w-4 rounded bg-ink transition-transform duration-300 ease-[var(--ease-bloom)] ${open ? "-rotate-45" : "translate-y-[3px]"}`}
+            />
           </button>
-        </div>
+        </nav>
       </motion.header>
 
       <AnimatePresence>
         {open && (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 z-40 flex flex-col justify-end bg-canvas px-6 pb-12 md:hidden"
-            initial={{ clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-40 flex flex-col justify-end bg-canvas/85 px-6 pb-14 backdrop-blur-2xl md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.25 } }}
+            transition={{ duration: 0.35 }}
           >
-            <ul className="space-y-1">
-              {links.map((l, i) => (
+            <ul className="space-y-2">
+              {[...links, { id: "contact", label: "Email me" }].map((l, i) => (
                 <li key={l.id} className="overflow-hidden">
                   <motion.a
-                    href={`/#${l.id}`}
-                    onClick={(e) => go(e, l.id)}
-                    className="flex items-baseline gap-4 font-serif text-6xl leading-tight"
+                    href={l.id === "contact" ? `mailto:${person.email}` : `/#${l.id}`}
+                    onClick={(e) => (l.id === "contact" ? setOpen(false) : go(e, l.id))}
+                    className="block font-display text-5xl font-semibold tracking-[-0.035em]"
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}
-                    transition={{ delay: 0.25 + i * 0.06, duration: 0.9, ease: EASE_OUT }}
+                    transition={{ delay: 0.1 + i * 0.06, duration: 0.7, ease: EASE }}
                   >
-                    <span className="font-mono text-xs text-ember">0{i + 1}</span>
                     {l.label}
                   </motion.a>
                 </li>
               ))}
             </ul>
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.2em] text-muted">{person.email}</p>
           </motion.div>
         )}
       </AnimatePresence>

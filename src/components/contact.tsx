@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
-import { person } from "@/content/site";
-import { Clock } from "./clock";
+import { ArrowUpIcon, CheckIcon, CopyIcon } from "@phosphor-icons/react";
+import { contact, person } from "@/content/site";
+import { Bloom } from "./bloom";
 import { scrollTo } from "./smooth-scroll";
-import { Container, EASE_OUT, LineReveal, Reveal } from "./ui";
+import { Container, Heading, PillLink } from "./ui";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
@@ -21,90 +21,56 @@ export function Contact() {
   };
 
   return (
-    <footer id="contact" className="relative overflow-hidden border-t border-line pt-32 md:pt-48">
+    <footer id="contact" className="relative overflow-hidden pt-28 md:pt-40">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/3 h-[50vmax] w-[50vmax] -translate-x-1/2 rounded-full bg-ember/10 blur-[140px]"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(50% 45% at 20% 40%, rgb(247 205 223 / 0.6), transparent 70%), radial-gradient(45% 40% at 85% 30%, rgb(216 203 245 / 0.7), transparent 70%)",
+        }}
       />
-      <Container className="relative">
-        <Reveal className="mb-10 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
-          <span className="text-ember">( 09 )</span> Say hello
-        </Reveal>
-
-        <h2 className="text-[clamp(3rem,9vw,9rem)] font-medium leading-[0.92] tracking-[-0.05em]">
-          <LineReveal
-            lines={[
-              "Let’s build",
-              <>
-                something that <em className="font-serif font-normal italic text-ember">lasts.</em>
-              </>,
-            ]}
-          />
-        </h2>
-
-        <Reveal delay={0.2} className="mt-16 flex flex-col gap-6 md:mt-20 md:flex-row md:items-center">
-          <a
-            href={`mailto:${person.email}`}
-            className="group relative inline-flex items-center gap-4 overflow-hidden rounded-full bg-ink px-7 py-4 text-canvas"
-          >
-            <span className="absolute inset-0 translate-y-full rounded-full bg-ember transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-y-0" />
-            <span className="relative text-base font-medium md:text-lg">{person.email}</span>
-            <span className="relative transition-transform duration-500 group-hover:rotate-45">↗</span>
-          </a>
+      <Container className="relative flex flex-col items-center text-center">
+        <div className="mb-10 w-28 md:w-32">
+          <Bloom />
+        </div>
+        <Heading className="max-w-[14ch] text-[clamp(2.75rem,7vw,6rem)] leading-[1]">{contact.heading}</Heading>
+        <p className="mt-6 max-w-[42ch] text-lg leading-relaxed text-soft md:text-xl">{contact.body}</p>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <PillLink href={`mailto:${person.email}`}>Email me</PillLink>
           <button
             onClick={copy}
-            className="inline-flex w-fit items-center gap-2 rounded-full border border-line px-5 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:border-ink/40 hover:text-ink"
+            className="inline-flex items-center gap-2 rounded-full bg-surface/70 px-5 py-3.5 text-[15px] font-medium ring-1 ring-line backdrop-blur transition-[background-color,transform] duration-200 hover:bg-surface active:scale-[0.98]"
           >
-            <motion.span key={String(copied)} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: EASE_OUT }}>
-              {copied ? "Copied ✓" : "Copy email"}
-            </motion.span>
+            {copied ? <CheckIcon size={16} weight="bold" className="text-orchid" /> : <CopyIcon size={16} weight="bold" />}
+            {copied ? "Copied" : "Copy address"}
           </button>
-        </Reveal>
-
-        <div className="mt-32 grid gap-10 border-t border-line py-10 font-mono text-[11px] uppercase tracking-[0.18em] md:grid-cols-4">
-          <div>
-            <p className="mb-3 text-muted">Elsewhere</p>
-            <ul className="space-y-2">
-              {person.socials.map((s) => (
-                <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2 hover:text-ember">
-                    {s.label}
-                    <span className="opacity-0 transition-opacity group-hover:opacity-100">↗</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="mb-3 text-muted">Local time</p>
-            <Clock timezone={person.timezone} label={person.timezoneLabel} />
-          </div>
-          <div>
-            <p className="mb-3 text-muted">Colophon</p>
-            <p className="normal-case tracking-normal text-ink/70">
-              Designed &amp; built by me. Set in Geist and Instrument Serif.
-            </p>
-          </div>
-          <div className="md:text-right">
-            <button onClick={() => scrollTo(0)} className="group inline-flex items-center gap-2 uppercase hover:text-ember">
-              Back to top <span className="transition-transform group-hover:-translate-y-1">↑</span>
-            </button>
-          </div>
         </div>
       </Container>
 
-      {/* Oversized wordmark that bleeds off the bottom of the page */}
-      <div aria-hidden className="relative select-none overflow-hidden">
-        <motion.p
-          className="whitespace-nowrap text-center font-serif text-[17vw] italic leading-[0.8] tracking-[-0.04em] text-ink/[0.06]"
-          initial={{ y: "40%" }}
-          whileInView={{ y: "12%" }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.6, ease: EASE_OUT }}
-        >
-          {person.name}
-        </motion.p>
-      </div>
+      <Container className="relative mt-28 flex flex-col gap-8 border-t border-line py-10 text-[15px] md:mt-36 md:flex-row md:items-center md:justify-between">
+        <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          {person.socials.map((s) => (
+            <li key={s.label}>
+              <a href={s.href} target="_blank" rel="noreferrer" className="underline-offset-4 hover:text-orchid hover:underline">
+                {s.label}
+              </a>
+            </li>
+          ))}
+          <li className="text-soft">{person.location}</li>
+        </ul>
+        <p className="text-soft">Designed and built by {person.firstName}.</p>
+        <button onClick={() => scrollTo(0)} className="inline-flex w-fit items-center gap-2 hover:text-orchid">
+          Back to top <ArrowUpIcon size={14} weight="bold" />
+        </button>
+      </Container>
+
+      <p
+        aria-hidden
+        className="relative select-none whitespace-nowrap text-center font-display text-[15.5vw] font-semibold leading-[0.78] tracking-[-0.05em] text-lavender/70"
+      >
+        {person.name}
+      </p>
     </footer>
   );
 }

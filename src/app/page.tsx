@@ -7,7 +7,7 @@ import { Craft } from "@/components/craft";
 import { Journey } from "@/components/journey";
 import { Work } from "@/components/work";
 import { Thinking } from "@/components/thinking";
-import { NotesPreview } from "@/components/notes-preview";
+import { Writing } from "@/components/writing";
 import { Now } from "@/components/now";
 import { Contact } from "@/components/contact";
 import { formatDate, getNotes } from "@/lib/notes";
@@ -27,7 +27,7 @@ export default function Home() {
         <Journey />
         <Work />
         <Thinking />
-        {notes.length > 0 && <NotesPreview notes={notes} />}
+        {notes.length > 0 && <Writing notes={notes} />}
         <Now />
       </main>
       <Contact />

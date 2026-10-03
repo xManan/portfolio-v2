@@ -1,62 +1,83 @@
 "use client";
 
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { now, shelf } from "@/content/site";
-import { Chapter, Container, Reveal } from "./ui";
+import { Container, EASE, Heading } from "./ui";
+
+const SPINES = [
+  { bg: "#d8cbf5", h: "h-[300px]" },
+  { bg: "#f7cddf", h: "h-[260px]" },
+  { bg: "#f7ebc0", h: "h-[320px]" },
+  { bg: "#ccd9f6", h: "h-[280px]" },
+  { bg: "#efd5f0", h: "h-[300px]" },
+];
 
 export function Now() {
+  const [active, setActive] = useState(0);
+  const book = shelf[active];
+
   return (
-    <section id="now" className="relative border-t border-line py-32 md:py-48">
-      <Container>
-        <Chapter index="08" label="Now & the shelf" />
-
-        <div className="grid gap-20 lg:grid-cols-2 lg:gap-10">
-          <Reveal>
-            <div className="h-full rounded-3xl border border-line bg-raised/40 p-8 md:p-12">
-              <div className="flex items-center justify-between">
-                <h2 className="font-serif text-5xl italic md:text-6xl">Now</h2>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">Updated {now.updated}</span>
+    <section id="now" className="relative py-28 md:py-40">
+      <Container className="grid gap-16 md:grid-cols-12 md:gap-10">
+        <div className="md:col-span-6">
+          <Heading className="text-[clamp(2.25rem,4.4vw,3.75rem)] leading-[1.05]">Now</Heading>
+          <p className="mt-3 text-soft">What has my attention, as of {now.updated}.</p>
+          <dl className="mt-10 rounded-[var(--radius-card)] bg-surface p-3 shadow-[var(--shadow-soft)]">
+            {now.items.map((item) => (
+              <div key={item.label} className="grid gap-1 rounded-[var(--radius-inner)] px-5 py-5 transition-colors duration-200 hover:bg-lavender/30 sm:grid-cols-3 sm:gap-6">
+                <dt className="text-sm font-medium text-orchid">{item.label}</dt>
+                <dd className="leading-relaxed sm:col-span-2">{item.value}</dd>
               </div>
-              <p className="mt-4 max-w-md text-ink/55">What has my attention these days. If we met at a coffee shop, this is what I&rsquo;d talk about.</p>
-              <dl className="mt-12">
-                {now.items.map((item) => (
-                  <div key={item.label} className="grid gap-2 border-t border-line py-5 sm:grid-cols-3 sm:gap-6">
-                    <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-ember">{item.label}</dt>
-                    <dd className="leading-relaxed text-ink/80 sm:col-span-2">{item.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </Reveal>
+            ))}
+          </dl>
+        </div>
 
-          <Reveal delay={0.12}>
-            <div className="h-full p-2 md:p-4">
-              <div className="flex items-center justify-between">
-                <h2 className="font-serif text-5xl italic md:text-6xl">The shelf</h2>
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">{shelf.length} books</span>
-              </div>
-              <p className="mt-4 max-w-md text-ink/55">Books that rearranged something in my head.</p>
-              <ul className="mt-12 grid gap-4 sm:grid-cols-2">
-                {shelf.map((b, i) => (
-                  <li
-                    key={b.title}
-                    className="group relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-r-xl rounded-l-sm border border-line bg-raised p-5 transition-transform duration-700 ease-[var(--ease-out-expo)] hover:-translate-y-2 hover:-rotate-1"
-                  >
-                    {/* Spine */}
-                    <span className="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/50 to-transparent" />
-                    <span
-                      className="absolute inset-x-0 top-0 h-1"
-                      style={{ background: ["#ff6a3d", "#efe9df", "#8f887c", "#c9a27a"][i % 4] }}
-                    />
-                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted">{b.author}</span>
-                    <div>
-                      <p className="font-serif text-2xl leading-[1.05]">{b.title}</p>
-                      <p className="mt-3 text-sm text-ink/50 transition-colors group-hover:text-ink/80">{b.note}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+        <div className="md:col-span-6">
+          <Heading className="text-[clamp(2.25rem,4.4vw,3.75rem)] leading-[1.05]">Bookshelf</Heading>
+          <p className="mt-3 text-soft">Books that rearranged something in my head.</p>
+
+          {/* Spines stand on a shelf; hovering or focusing one pulls it out. */}
+          <div className="mt-10 flex h-[340px] items-end gap-3 border-b-[6px] border-lavender/70 px-2" role="list">
+            {shelf.map((b, i) => {
+              const isActive = i === active;
+              return (
+                <button
+                  key={b.title}
+                  role="listitem"
+                  onPointerEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  onClick={() => setActive(i)}
+                  aria-pressed={isActive}
+                  aria-label={`${b.title} by ${b.author}`}
+                  className={`grainy relative w-16 shrink-0 overflow-hidden rounded-t-[10px] rounded-b-[4px] px-2 py-4 text-left shadow-[inset_-6px_0_10px_-6px_rgb(43_34_56/0.25)] transition-transform duration-300 ease-[var(--ease-bloom)] md:w-[72px] ${SPINES[i % SPINES.length].h} ${
+                    isActive ? "-translate-y-5" : "hover:-translate-y-2"
+                  }`}
+                  style={{ background: SPINES[i % SPINES.length].bg }}
+                >
+                  <span className="relative z-[2] block h-full font-display text-[15px] font-semibold leading-tight tracking-[-0.01em] [writing-mode:vertical-rl]">
+                    {b.title}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="relative mt-8 min-h-[110px]" aria-live="polite">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={book.title}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6, transition: { duration: 0.15 } }}
+                transition={{ duration: 0.35, ease: EASE }}
+              >
+                <p className="font-display text-2xl font-semibold tracking-[-0.025em]">{book.title}</p>
+                <p className="mt-1 text-soft">{book.author}</p>
+                <p className="mt-3 text-lg">{book.note}</p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </Container>
     </section>

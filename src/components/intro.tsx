@@ -2,45 +2,44 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { person, quote } from "@/content/site";
-import { Emphasis } from "./emphasis";
+import { quote } from "@/content/site";
 import { useIntro } from "./intro-context";
+import { Bloom } from "./bloom";
+import { EASE, EASE_CURTAIN } from "./ui";
 
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
-const EASE_CURTAIN = [0.76, 0, 0.24, 1] as const;
-
-const WORD_STAGGER = 0.11;
-const WORD_DELAY = 0.5;
+const WORD_DELAY = 0.9;
+const WORD_STAGGER = 0.07;
 
 /**
- * Full-screen opening: the quote writes itself in word by word, holds for a
- * breath, then the whole curtain lifts to reveal the page. Any click, key or
- * scroll lifts it early.
+ * Opening moment: petals bloom, the quote writes itself in word by word,
+ * holds for a breath, then the whole sheet lifts to reveal the page.
+ * Any click, key or scroll lifts it early.
  */
 export function Intro() {
   const { done, finish } = useIntro();
   const reduce = useReducedMotion();
-  const [phase, setPhase] = useState<"writing" | "holding">("writing");
-  const finished = useRef(false);
+  const [ready, setReady] = useState(false);
+  const lifted = useRef(false);
 
   const words = quote.text.split(" ");
-  const writeTime = WORD_DELAY + words.length * WORD_STAGGER + 0.9;
+  const writeEnd = WORD_DELAY + words.length * WORD_STAGGER + 0.9;
+  const hold = 1.9;
 
   const lift = () => {
-    if (finished.current) return;
-    finished.current = true;
+    if (lifted.current) return;
+    lifted.current = true;
     finish();
   };
 
   useEffect(() => {
     if (done) return;
-    const t1 = setTimeout(() => setPhase("holding"), writeTime * 1000);
-    const t2 = setTimeout(lift, (writeTime + 1.8) * 1000);
+    const t1 = setTimeout(() => setReady(true), writeEnd * 1000);
+    const t2 = setTimeout(lift, (writeEnd + hold) * 1000);
     const skip = (e: Event) => {
       if (e instanceof KeyboardEvent && ["Shift", "Meta", "Control", "Alt", "Tab"].includes(e.key)) return;
       lift();
     };
-    // Give people a beat before accidental wheel momentum can skip it.
+    // A short grace period so leftover wheel momentum doesn't skip it.
     const t3 = setTimeout(() => {
       window.addEventListener("wheel", skip, { passive: true });
       window.addEventListener("touchmove", skip, { passive: true });
@@ -61,102 +60,62 @@ export function Intro() {
         <motion.div
           key="intro"
           data-intro-overlay
+          role="dialog"
+          aria-label="Opening quote"
           onClick={lift}
-          className="fixed inset-0 z-[100] flex cursor-pointer flex-col bg-canvas"
-          exit={reduce ? { opacity: 0 } : { y: "-100%" }}
-          transition={{ duration: reduce ? 0.4 : 1.15, ease: EASE_CURTAIN }}
+          className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center overflow-hidden bg-canvas"
+          exit={reduce ? { opacity: 0 } : { y: "-100%", borderBottomLeftRadius: "40% 12%", borderBottomRightRadius: "40% 12%" }}
+          transition={{ duration: reduce ? 0.3 : 1.1, ease: EASE_CURTAIN }}
         >
-          {/* A soft ember glow that breathes behind the words */}
-          <motion.div
+          {/* Ambient washes */}
+          <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[60vmin] w-[60vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-ember/20 blur-[120px]"
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 3, ease: EASE_OUT }}
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(60% 50% at 15% 10%, rgb(216 203 245 / 0.7), transparent 70%), radial-gradient(50% 45% at 90% 90%, rgb(247 205 223 / 0.75), transparent 70%)",
+            }}
           />
-
-          <div className="flex items-center justify-between px-6 pt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-muted md:px-10 md:pt-8">
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 1 }}>
-              A note before we begin
-            </motion.span>
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 1 }}>
-              ( 00 )
-            </motion.span>
+          <div aria-hidden className="absolute left-1/2 top-1/2 w-[min(78vmin,620px)] -translate-x-1/2 -translate-y-1/2 opacity-45">
+            <Bloom delay={0.1} />
           </div>
 
-          <div className="relative flex flex-1 items-center justify-center px-6">
-            <figure className="max-w-5xl text-center">
-              <blockquote className="font-serif text-[clamp(2.4rem,7vw,6.5rem)] leading-[1.02] tracking-[-0.02em] text-ink">
-                <motion.span
-                  className="mr-[0.15em] inline-block text-ember"
-                  initial={{ opacity: 0, y: "0.3em" }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: WORD_DELAY - 0.2, duration: 1, ease: EASE_OUT }}
-                >
-                  &ldquo;
-                </motion.span>
-                {words.map((word, i) => (
-                  <span key={i} className="inline-block overflow-hidden pb-[0.12em] align-top">
-                    <motion.span
-                      className="inline-block"
-                      initial={reduce ? { opacity: 0 } : { opacity: 0, y: "100%", filter: "blur(10px)", rotate: 4 }}
-                      animate={{ opacity: 1, y: 0, filter: "blur(0px)", rotate: 0 }}
-                      transition={{ delay: WORD_DELAY + i * WORD_STAGGER, duration: 1.1, ease: EASE_OUT }}
-                    >
-                      <Emphasis text={word} />
-                    </motion.span>
-                    {i < words.length - 1 && " "}
-                  </span>
-                ))}
-                <motion.span
-                  className="ml-[0.05em] inline-block text-ember"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: WORD_DELAY + words.length * WORD_STAGGER, duration: 0.8 }}
-                >
-                  &rdquo;
-                </motion.span>
-              </blockquote>
+          <figure className="relative max-w-4xl px-6 text-center">
+            <blockquote className="font-display text-[clamp(2.2rem,6vw,5.25rem)] font-semibold leading-[1.04] tracking-[-0.035em] text-ink">
+              {words.map((word, i) => (
+                <span key={i} className="inline-block overflow-hidden pb-[0.12em] align-top">
+                  <motion.span
+                    className="inline-block"
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: "70%", filter: "blur(8px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ delay: WORD_DELAY + i * WORD_STAGGER, duration: 0.9, ease: EASE }}
+                  >
+                    {i === 0 && "“"}
+                    {word}
+                    {i === words.length - 1 && "”"}
+                  </motion.span>
+                  {i < words.length - 1 && " "}
+                </span>
+              ))}
+            </blockquote>
+            <motion.figcaption
+              className="mt-8 text-base text-soft md:text-lg"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: WORD_DELAY + words.length * WORD_STAGGER + 0.3, duration: 0.8, ease: EASE }}
+            >
+              {quote.author}
+            </motion.figcaption>
+          </figure>
 
-              <figcaption className="mt-10 flex items-center justify-center gap-4 font-mono text-xs uppercase tracking-[0.25em] text-muted">
-                <motion.span
-                  className="h-px w-12 origin-left bg-muted/60"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: WORD_DELAY + words.length * WORD_STAGGER + 0.3, duration: 1, ease: EASE_OUT }}
-                />
-                <motion.span
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: WORD_DELAY + words.length * WORD_STAGGER + 0.5, duration: 1, ease: EASE_OUT }}
-                >
-                  {quote.author}
-                </motion.span>
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="relative px-6 pb-6 md:px-10 md:pb-8">
-            <div className="flex items-end justify-between font-mono text-[11px] uppercase tracking-[0.2em] text-muted">
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: phase === "holding" ? 1 : 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                Click or scroll to continue
-              </motion.span>
-              <span className="hidden md:inline">{person.name}</span>
-            </div>
-            {/* Hairline progress that fills while the quote plays */}
-            <div className="mt-4 h-px w-full bg-line">
-              <motion.div
-                className="h-px origin-left bg-ink/60"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: writeTime + 1.8, ease: "linear" }}
-              />
-            </div>
-          </div>
+          <motion.p
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm text-soft"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: ready ? 1 : 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Click anywhere to continue
+          </motion.p>
         </motion.div>
       )}
     </AnimatePresence>

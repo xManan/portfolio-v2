@@ -1,36 +1,41 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowLeftIcon } from "@phosphor-icons/react/dist/ssr";
 import { Nav } from "@/components/nav";
-import { NoteRow } from "@/components/notes-preview";
+import { NoteRow } from "@/components/writing";
 import { Container } from "@/components/ui";
 import { formatDate, getNotes } from "@/lib/notes";
 
 export const metadata: Metadata = {
-  title: "Field Notes",
-  description: "Notes from the field — things I'm learning, building and figuring out.",
+  title: "Writing",
+  description: "Things I'm learning, building and figuring out, written down so I understand them better.",
 };
 
 export default function NotesIndex() {
-  const notes = getNotes();
+  const notes = getNotes().map((n) => ({ ...n, displayDate: formatDate(n.date) }));
   return (
     <>
       <Nav />
-      <main className="min-h-screen pb-32 pt-40 md:pt-52">
-        <Container>
-          <Link href="/" className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted hover:text-ink">
-            ← Home
-          </Link>
-          <h1 className="mt-10 text-[clamp(3rem,9vw,8.5rem)] font-medium leading-[0.92] tracking-[-0.05em]">
-            Field <em className="font-serif font-normal italic text-ember">notes.</em>
-          </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/60">
-            Not polished essays — notes from the field. Things I&rsquo;m learning, building, breaking and figuring out,
-            written down so I understand them better.
-          </p>
-          <div className="mt-20 border-b border-line">
-            {notes.map((n) => (
-              <NoteRow key={n.slug} note={n} date={formatDate(n.date)} />
-            ))}
+      <main className="relative min-h-[100dvh] pb-32 pt-32 md:pt-40">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[60vh]"
+          style={{ background: "radial-gradient(50% 60% at 15% 0%, rgb(216 203 245 / 0.6), transparent 70%), radial-gradient(40% 50% at 90% 10%, rgb(247 205 223 / 0.6), transparent 70%)" }}
+        />
+        <Container className="relative">
+          <div className="mx-auto max-w-3xl">
+            <Link href="/" className="inline-flex items-center gap-2 text-soft hover:text-orchid">
+              <ArrowLeftIcon size={16} weight="bold" /> Home
+            </Link>
+            <h1 className="mt-8 font-display text-[clamp(3rem,8vw,5.5rem)] font-semibold leading-none tracking-[-0.045em]">Writing</h1>
+            <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-soft">
+              Things I&rsquo;m learning, building, breaking and figuring out, written down so I understand them better.
+            </p>
+            <div className="mt-14">
+              {notes.map((n) => (
+                <NoteRow key={n.slug} note={n} />
+              ))}
+            </div>
           </div>
         </Container>
       </main>

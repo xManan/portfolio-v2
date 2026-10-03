@@ -5,9 +5,9 @@ summary: The most exciting thing a system can do is nothing surprising at all.
 tags: [engineering, opinion]
 ---
 
-> This is a sample note to show how Field Notes look. Replace it with your own writing — or keep the idea and make it yours.
+> This is a sample note to show how Field Notes look. Replace it with your own writing, or keep the idea and make it yours.
 
-Every few months a new database, framework or runtime promises to change everything. Some of them do. Most of them change *something* — usually the number of things that can go wrong at 3am.
+Every few months a new database, framework or runtime promises to change everything. Some of them do. Most of them change *something*, usually the number of things that can go wrong at 3am.
 
 ## Boring is a feature
 
