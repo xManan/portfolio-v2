@@ -108,7 +108,7 @@ if (!homeNow.about.objects?.length || process.env.RESEED_OBJECTS) {
       data: { alt: o.label },
       filePath: path.resolve(process.cwd(), "content/objects", o.file),
     });
-    objects.push({ image: media.id, label: o.label, caption: o.caption, size: o.size });
+    objects.push({ image: media.id, label: o.label, caption: o.caption, story: o.story, credit: o.credit || undefined, size: o.size });
   }
   await payload.updateGlobal({ slug: "home", ...ctx, data: { about: { ...homeNow.about, objects } } });
   payload.logger.info(`Seeded ${objects.length} about objects`);

@@ -3,6 +3,7 @@ import * as migration_20261003_173953_about_objects from './20261003_173953_abou
 import * as migration_20261003_183213_contact_messages from './20261003_183213_contact_messages';
 import * as migration_20261003_184234_remove_contact_messages from './20261003_184234_remove_contact_messages';
 import * as migration_20261003_194106_remove_approach_section from './20261003_194106_remove_approach_section';
+import * as migration_20261003_195610_about_object_stories from './20261003_195610_about_object_stories';
 
 export const migrations = [
   {
@@ -28,6 +29,11 @@ export const migrations = [
   {
     up: migration_20261003_194106_remove_approach_section.up,
     down: migration_20261003_194106_remove_approach_section.down,
-    name: '20261003_194106_remove_approach_section'
+    name: '20261003_194106_remove_approach_section',
+  },
+  {
+    up: migration_20261003_195610_about_object_stories.up,
+    down: migration_20261003_195610_about_object_stories.down,
+    name: '20261003_195610_about_object_stories'
   },
 ];

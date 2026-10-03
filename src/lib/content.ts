@@ -54,6 +54,8 @@ export const getHome = cache(async () => {
             height: m.height ?? 400,
             label: o.label,
             caption: o.caption,
+            story: o.story ?? "",
+            credit: o.credit ?? "",
             size: (o.size ?? "medium") as "small" | "medium" | "large",
           };
         }),

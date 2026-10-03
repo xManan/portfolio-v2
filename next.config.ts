@@ -4,6 +4,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     localPatterns: [{ pathname: "/api/media/file/**" }],
+    qualities: [75, 90],
+    formats: ["image/avif", "image/webp"],
   },
 };
 

@@ -45,17 +45,67 @@ export const story = {
   // care about outside of work.
   lead:
     "I fell in love with computers the way most people fall in love with anything: by breaking one first. What kept me there wasn’t the code. It was the feeling of taking something tangled and making it calm, clear and dependable. I still chase that feeling every day. Outside of work I’m a curious, slightly obsessive learner who believes the best engineers are, first, good people to build with.",
-  // Floating objects around the story. Files live in content/objects (placeholder
-  // 3D renders); replace them with cut-out photos of your own things in /admin.
-  // TODO(manan): your real things and captions.
+  // The things that tell your story, top to bottom. Files live in content/objects
+  // (placeholder photos from Wikimedia Commons, see the LICENSE.md there);
+  // replace them with cut-out photos of your own things in /admin.
+  // TODO(manan): your real things, captions and stories.
   objects: [
-    { file: "controller.webp", label: "A game controller", caption: "One more match, then bed. Probably.", size: "medium" },
-    { file: "laptop.webp", label: "My laptop", caption: "It works on my machine. I checked twice.", size: "large" },
-    { file: "headphones.webp", label: "Headphones", caption: "Long walks, longer playlists.", size: "medium" },
-    { file: "books.webp", label: "A stack of books", caption: "Reading the Raft paper. Slowly.", size: "medium" },
-    { file: "dumbbells.webp", label: "A pair of dumbbells", caption: "Lifting things that aren't servers.", size: "small" },
-    { file: "bulb.webp", label: "A light bulb", caption: "100 tabs open, one good idea.", size: "small" },
-    { file: "plant.webp", label: "A potted plant", caption: "Keeping one plant alive. So far.", size: "small" },
+    {
+      file: "laptop.webp",
+      label: "My laptop",
+      caption: "It works on my machine. I checked twice.",
+      story: "Where the day job happens: APIs, queues, databases and the quiet work of making them boring. There is always a terminal open.",
+      size: "large",
+      credit: "Photo: iFixit, CC BY-SA 3.0",
+    },
+    {
+      file: "controller.webp",
+      label: "A game controller",
+      caption: "One more match, then bed. Probably.",
+      story: "Games taught me systems thinking before I had a name for it: every rule leans on every other rule. I still play most evenings, mostly co-op, always too late.",
+      size: "medium",
+      credit: "",
+    },
+    {
+      file: "headphones.webp",
+      label: "Headphones",
+      caption: "Long walks, longer playlists.",
+      story: "My best ideas rarely show up at the desk. I walk, I listen, and whatever I was stuck on usually comes loose somewhere around the second album.",
+      size: "medium",
+      credit: "Photo: RPSkokie, CC BY-SA 4.0",
+    },
+    {
+      file: "books.webp",
+      label: "A stack of books",
+      caption: "Reading the Raft paper. Slowly.",
+      story: "Papers and old books, with equal patience. The classics of distributed systems hold up better than most of what gets written about them today.",
+      size: "medium",
+      credit: "",
+    },
+    {
+      file: "dumbbells.webp",
+      label: "A pair of dumbbells",
+      caption: "Lifting things that aren't servers.",
+      story: "Training keeps my head clear, and it's the most honest feedback loop I know: show up consistently and the numbers move.",
+      size: "medium",
+      credit: "",
+    },
+    {
+      file: "bulb.webp",
+      label: "A light bulb",
+      caption: "100 tabs open, one good idea.",
+      story: "Curious to a fault. Side projects start as a question at midnight and end, sometimes, as something useful.",
+      size: "small",
+      credit: "Photo: Liebeskind, CC BY-SA 4.0",
+    },
+    {
+      file: "plant.webp",
+      label: "A potted plant",
+      caption: "Keeping one plant alive. So far.",
+      story: "Small, steady care beats heroics, for plants and for production systems. This one is proof I'm learning.",
+      size: "small",
+      credit: "Photo: Petr Smagin, CC BY 4.0",
+    },
   ] as const,
 };
 

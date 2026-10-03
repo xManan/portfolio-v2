@@ -38,7 +38,7 @@ npm run dev              # site on http://localhost:3000, dashboard on /admin
 
 1. **Intro**: the quote writes itself in over a drifting gradient, then the sheet lifts (on every load of the home page; click, key or scroll skips it).
 2. **Hero**: who you are in one line, under a slanted gradient band.
-3. **About**: your story in the middle, with cut-out objects from your life floating around it. A line draws itself between them as you scroll; hovering one types out its caption.
+3. **About**: your story, then the things from your life one by one down the page. Each photo floats on one side while its words come into focus beside it, and a line follows your scroll from one object to the next.
 4. **What I believe**: principle cards that stack as you scroll.
 5. **What I do**: capabilities accordion and the tool marquee.
 6. **Where I've been**: career timeline with a filling rail.

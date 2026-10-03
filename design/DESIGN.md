@@ -53,7 +53,6 @@ project covers, the featured article and the contact panel.
 
 ## Layout families (no repeats)
 
-Intro (full-bleed mesh + quote), hero (slanted band, Stripe-style), about (lit paragraph +
-bento), principles (sticky stack), craft (sticky statement + accordion + marquee), journey
+Intro (full-bleed mesh + quote), hero (slanted band, Stripe-style), about (lit paragraph, then a scroll trail of photos with focus-in text), principles (sticky stack), craft (sticky statement + accordion + marquee), journey
 (timeline), work (rows + cursor cover), writing (featured +
 list), now + bookshelf, contact (mesh panel).

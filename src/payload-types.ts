@@ -501,9 +501,17 @@ export interface Home {
            */
           label: string;
           /**
-           * The speech bubble. Short and in your voice.
+           * The big line next to the image. Short and in your voice.
            */
           caption: string;
+          /**
+           * One or two sentences under it: what this thing says about you.
+           */
+          story?: string | null;
+          /**
+           * Only if the photo isn't yours, e.g. Photo: Jane Doe, CC BY 4.0
+           */
+          credit?: string | null;
           id?: string | null;
         }[]
       | null;
@@ -665,6 +673,8 @@ export interface HomeSelect<T extends boolean = true> {
               size?: T;
               label?: T;
               caption?: T;
+              story?: T;
+              credit?: T;
               id?: T;
             };
       };
