@@ -149,35 +149,47 @@ export const craft = {
     },
   ],
   // TODO(manan): your actual stack.
-  stack: ["Claude Code", "TypeScript", "Go", "Node.js", "Next.js", "React", "Python", "PostgreSQL", "Redis", "Kafka", "Docker", "AWS"],
+  stack: ["Claude Code", "TypeScript", "Node.js", "Next.js", "React", "Python", "MySQL", "PostgreSQL", "Amazon Redshift", "AWS", "Redis", "Docker"],
 };
 
-/** Career, newest first. Backend, then full stack, then systems with AI. */
+/** Career, newest first. */
 export const journey = {
   heading: "Where I’ve been",
   items: [
-    // TODO(manan): your real companies, years and results.
     {
-      period: "2025 - now",
-      role: "Systems and AI-assisted engineering",
-      org: "Company name",
+      period: "Aug 2025 - now",
+      role: "SDE-1",
+      org: "SolarSquare",
       summary:
-        "I design the system and let AI do most of the writing: architecture, specs, guardrails and review. I ship more, and type less, than ever.",
-      highlights: ["Moved the team to spec-first, AI-assisted development", "A result you’re proud of, with a number"],
+        "Working across the stack, and more and more on the design: how a system should work, where it should bend, and what happens when it breaks. AI writes most of the code; I make sure it’s the right code.",
+      // TODO(manan): add one or two results once you have numbers you can share.
+      highlights: [],
     },
     {
-      period: "2023 - 2025",
-      role: "Full-stack engineer",
-      org: "Previous company",
-      summary: "Followed the work up the stack and learned to build the whole product, from the database to the button people click.",
-      highlights: ["Shipped features end to end, from schema to UI"],
+      period: "Jun 2024 - Jul 2025",
+      role: "Software engineer",
+      org: "Novoinvent Softwares",
+      summary:
+        "Backend for a fintech platform: transactions, bank integrations and data at scale, where correctness isn’t optional.",
+      highlights: [
+        "API latency down 60% by reworking SQL queries",
+        "1,000+ concurrent transactions with no data corruption",
+        "5,000+ bank files a day into wallets, 90% faster",
+        "10M rows a day into Redshift, 15% faster processing",
+        "Database response times down 20% with indexing",
+      ],
     },
     {
-      period: "2021 - 2023",
-      role: "Backend developer",
-      org: "First company",
-      summary: "Where it started: APIs, background workers and databases, and learning what production really means.",
-      highlights: ["Built the services behind the core product"],
+      period: "May 2023 - May 2024",
+      role: "Software engineer intern",
+      org: "Novoinvent Softwares",
+      summary:
+        "Where it started: learning the craft next to senior engineers, from MySQL performance to shipping real features on AWS.",
+      highlights: [
+        "Invoice text extraction at scale with AWS Textract and S3",
+        "Query optimisation cut database load by 25%",
+        "Integrated external REST APIs into the platform",
+      ],
     },
   ],
 };
@@ -210,7 +222,7 @@ export const projects = {
       year: "2025",
       kind: "Backend system",
       summary: "From your backend years: moving data reliably, with retries, backpressure and dashboards that tell the truth.",
-      stack: ["Go", "Kafka", "Docker"],
+      stack: ["Node.js", "MySQL", "AWS"],
       href: "https://github.com/xManan",
       image: "",
     },
