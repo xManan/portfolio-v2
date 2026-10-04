@@ -111,7 +111,7 @@ export function Hero({ hero, person }: { hero: Site["hero"]; person: Person }) {
           <motion.p {...enter(0.55)} className="max-w-[36ch] text-lg leading-relaxed text-soft md:col-span-6 md:text-xl">
             {hero.intro}
           </motion.p>
-          <motion.div {...enter(0.7)} className="flex flex-wrap items-center gap-3 md:col-span-6 md:justify-end">
+          <motion.div {...enter(0.7)} className="flex flex-wrap items-center gap-2 sm:gap-3 md:col-span-6 md:justify-end">
             <PillLink
               href="#work"
               onClick={(e) => {
@@ -119,6 +119,7 @@ export function Hero({ hero, person }: { hero: Site["hero"]; person: Person }) {
                 scrollTo("#work");
               }}
               icon={<ArrowDownIcon size={16} weight="bold" />}
+              dir="down"
             >
               See my work
             </PillLink>

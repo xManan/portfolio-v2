@@ -78,22 +78,45 @@ export type PillVariant = "solid" | "ghost";
 
 /** Shared look for pill buttons and links, with the icon nested in its own circle. */
 export const pillClass = (variant: PillVariant = "solid") =>
-  `group inline-flex items-center gap-3 rounded-full py-2 pl-6 pr-2 text-[15px] font-medium transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-bloom)] active:scale-[0.98] ${
+  `group inline-flex cursor-pointer items-center gap-1.5 rounded-full py-1.5 pl-3.5 pr-1.5 text-[13.5px] font-medium transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-bloom)] active:scale-[0.98] sm:gap-3 sm:py-2 sm:pl-6 sm:pr-2 sm:text-[15px] ${
     variant === "solid"
       ? "bg-ink text-canvas shadow-[0_10px_30px_-10px_rgb(43_34_56/0.5)] hover:bg-purple"
       : "bg-surface/70 text-ink ring-1 ring-line backdrop-blur hover:bg-surface"
   }`;
 
-export function PillContent({ children, icon, variant = "solid" }: { children: React.ReactNode; icon?: React.ReactNode; variant?: PillVariant }) {
+/** Which way the arrow points, and so which way it leaves on hover. */
+export type PillDir = "diagonal" | "down";
+
+/**
+ * Label plus an arrow in a circle. On hover the circle stays exactly where it
+ * is; the arrow slides out the way it points and a fresh one slides in from
+ * the opposite side, so the pill keeps its symmetry.
+ */
+export function PillContent({
+  children,
+  icon,
+  variant = "solid",
+  dir = "diagonal",
+}: {
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  variant?: PillVariant;
+  dir?: PillDir;
+}) {
+  const glyph = icon ?? <ArrowUpRightIcon size={16} weight="bold" />;
   return (
     <>
       <span className="whitespace-nowrap">{children}</span>
       <span
-        className={`grid h-9 w-9 place-items-center rounded-full transition-transform duration-300 ease-[var(--ease-bloom)] group-hover:translate-x-0.5 group-hover:-translate-y-px ${
-          variant === "solid" ? "bg-canvas/15" : "bg-mist"
+        data-dir={dir}
+        className={`pill-icon grid h-8 w-8 place-items-center rounded-full transition-colors duration-300 sm:h-9 sm:w-9 ${
+          variant === "solid" ? "bg-canvas/15 group-hover:bg-canvas/25" : "bg-mist group-hover:bg-purple group-hover:text-canvas"
         }`}
       >
-        {icon ?? <ArrowUpRightIcon size={16} weight="bold" />}
+        <span className="pill-icon-now">{glyph}</span>
+        <span aria-hidden className="pill-icon-next">
+          {glyph}
+        </span>
       </span>
     </>
   );
@@ -107,6 +130,7 @@ export function PillLink({
   external,
   onClick,
   icon,
+  dir,
 }: {
   href: string;
   children: React.ReactNode;
@@ -114,10 +138,11 @@ export function PillLink({
   external?: boolean;
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   icon?: React.ReactNode;
+  dir?: PillDir;
 }) {
   return (
     <a href={href} onClick={onClick} {...(external ? { target: "_blank", rel: "noreferrer" } : {})} className={pillClass(variant)}>
-      <PillContent variant={variant} icon={icon}>
+      <PillContent variant={variant} icon={icon} dir={dir}>
         {children}
       </PillContent>
     </a>
