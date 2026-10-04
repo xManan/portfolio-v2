@@ -24,6 +24,7 @@
     "@payloadcms/storage-vercel-blob": "^3.90.2",
     "@payloadcms/ui": "^3.90.2",
     "@phosphor-icons/react": "^2.1.10",
+    "@vercel/analytics": "^2.0.1",
     "geist": "^1.7.2",
     "graphql": "^16.14.2",
     "gray-matter": "^4.0.3",

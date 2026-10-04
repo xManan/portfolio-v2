@@ -8,6 +8,7 @@ import { Nav } from "@/components/nav";
 import { ConnectProvider } from "@/components/connect";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { IntroProvider } from "@/components/intro-context";
+import { Analytics } from "@vercel/analytics/next";
 
 // Public address of the site, for link previews. Server-only; the old
 // NEXT_PUBLIC_SERVER_URL name still works.
@@ -49,6 +50,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </ConnectProvider>
         </IntroProvider>
         <div className="grain" aria-hidden />
+        {/* Visitor analytics, only when hosted on Vercel (no-op elsewhere). */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );
