@@ -38,6 +38,7 @@ RESEED_OBJECTS=1 npm run seed   # the About objects and their photos
 | Design system (palette, type, motion rules) | `design/DESIGN.md` |
 | Sections | `src/components/*.tsx` |
 | Deploying to a VPS | `deploy/README.md` |
+| Deploying to Vercel (with Turso and Vercel Blob) | `deploy/VERCEL.md` |
 
 **Changing the schema** (adding a field): edit `src/payload/`, then run
 `npm run migrate:create -- describe-change` and commit the new file in `src/migrations/`.

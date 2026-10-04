@@ -157,10 +157,10 @@ export const journey = {
   items: [
     {
       period: "Aug 2025 - now",
-      role: "SDE-1",
+      role: "Full-stack engineer (SDE-1)",
       org: "SolarSquare",
       summary:
-        "Working across the stack, and more and more on the design: how a system should work, where it should bend, and what happens when it breaks. AI writes most of the code; I make sure it’s the right code.",
+        "Building across the whole stack, from APIs and data to the screens people use, and spending more and more of my time on the design: how a system should work, where it should bend and what happens when it breaks. AI writes most of the code; I make sure it’s the right code.",
       // TODO(manan): add one or two results once you have numbers you can share.
       highlights: [],
     },

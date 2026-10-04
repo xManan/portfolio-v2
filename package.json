@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "vercel-build": "payload migrate && next build",
     "start": "next start",
     "lint": "tsc --noEmit",
     "payload": "payload",
@@ -20,6 +21,7 @@
     "@payloadcms/db-sqlite": "^3.90.2",
     "@payloadcms/next": "^3.90.2",
     "@payloadcms/richtext-lexical": "^3.90.2",
+    "@payloadcms/storage-vercel-blob": "^3.90.2",
     "@payloadcms/ui": "^3.90.2",
     "@phosphor-icons/react": "^2.1.10",
     "geist": "^1.7.2",
