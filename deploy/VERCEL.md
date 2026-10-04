@@ -67,7 +67,7 @@ Use the same `PAYLOAD_SECRET` on Vercel in the next step: logins are signed with
    | `PAYLOAD_SECRET` | the same value as in `.env.vercel` |
    | `DATABASE_URI` | `libsql://portfolio-<you>.turso.io` |
    | `DATABASE_AUTH_TOKEN` | the Turso token |
-   | `NEXT_PUBLIC_SERVER_URL` | `https://<project>.vercel.app` for now |
+   | `SITE_URL` | `https://<project>.vercel.app` for now |
 
 4. **Deploy.**
 5. Connect the Blob store: **Storage → portfolio-media → Connect to project**.
@@ -82,7 +82,7 @@ the admin account.
 ## 6. Use your domain
 
 **Settings → Domains → Add**, enter your domain and add the DNS records Vercel
-shows at your registrar. Then set `NEXT_PUBLIC_SERVER_URL` to
+shows at your registrar. Then set `SITE_URL` to
 `https://yourdomain.com` and redeploy.
 
 ## Day to day

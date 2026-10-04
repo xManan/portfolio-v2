@@ -32,7 +32,7 @@ sudo -iu portfolio
 git clone https://github.com/xManan/portfolio-v2.git /srv/portfolio
 cd /srv/portfolio
 cp .env.example .env
-nano .env   # set PAYLOAD_SECRET (openssl rand -hex 32) and NEXT_PUBLIC_SERVER_URL=https://yourdomain.com
+nano .env   # set PAYLOAD_SECRET (openssl rand -hex 32) and SITE_URL=https://yourdomain.com
 ```
 
 ## 3. Install, create the database, fill it, build

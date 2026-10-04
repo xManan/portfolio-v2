@@ -9,6 +9,10 @@ import { ConnectProvider } from "@/components/connect";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { IntroProvider } from "@/components/intro-context";
 
+// Public address of the site, for link previews. Server-only; the old
+// NEXT_PUBLIC_SERVER_URL name still works.
+const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SERVER_URL;
+
 export async function generateMetadata(): Promise<Metadata> {
   const { person, hero } = await getSite();
   const title = `${person.name}, ${person.role.toLowerCase()}`;
@@ -17,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     description: hero.intro,
     openGraph: { title, description: hero.intro, type: "website" },
     icons: { icon: "/icon.svg" },
-    metadataBase: process.env.NEXT_PUBLIC_SERVER_URL ? new URL(process.env.NEXT_PUBLIC_SERVER_URL) : undefined,
+    metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   };
 }
 
