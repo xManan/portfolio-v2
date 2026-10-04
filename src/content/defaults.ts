@@ -10,8 +10,7 @@ export const person = {
   name: "Manan Chawla",
   firstName: "Manan",
   role: "Software engineer",
-  // TODO(manan): your city (shown once, in the footer).
-  location: "New Delhi, India",
+  location: "Mumbai, India",
   // TODO(manan): confirm the email you want people to use.
   email: "mananchawla10@gmail.com",
   socials: [
@@ -198,41 +197,42 @@ export const journey = {
 export const projects = {
   heading: "Things I’ve built",
   items: [
-    // TODO(manan): your real projects.
     {
-      title: "Project one",
-      year: "2026",
-      kind: "Designed with AI",
-      summary: "A product you designed end to end and built with AI. Say what it does, who it helps and what you decided.",
-      stack: ["Next.js", "PostgreSQL", "Claude Code"],
-      href: "https://github.com/xManan",
-      image: "",
-    },
-    {
-      title: "Project two",
-      year: "2025",
-      kind: "Developer tool",
-      summary: "Something you built because you were tired of doing it by hand, and others ended up using too.",
-      stack: ["TypeScript", "Node.js"],
-      href: "https://github.com/xManan",
-      image: "",
-    },
-    {
-      title: "Project three",
-      year: "2025",
-      kind: "Backend system",
-      summary: "From your backend years: moving data reliably, with retries, backpressure and dashboards that tell the truth.",
-      stack: ["Node.js", "MySQL", "AWS"],
-      href: "https://github.com/xManan",
-      image: "",
-    },
-    {
-      title: "Project four",
+      title: "go-t",
       year: "2024",
-      kind: "Open source",
-      summary: "Something small and sharp you put out into the world for free.",
-      stack: ["Rust", "CLI"],
-      href: "https://github.com/xManan",
+      kind: "Command-line tool",
+      summary: "A typing speed test that lives in the terminal. Small, fast and written in Go, with a Nix flake so it runs anywhere.",
+      stack: ["Go", "CLI", "Nix"],
+      href: "https://github.com/xManan/go-t",
+      image: "",
+    },
+    {
+      title: "Kubera",
+      year: "2026",
+      kind: "MCP server",
+      summary:
+        "Personal-finance tracking built for AI agents. The agent handles the conversation; Kubera owns validation, duplicate detection, audit history and reports. Designed on paper first, then built with AI.",
+      stack: ["Go", "MCP", "SQLite"],
+      href: "https://github.com/xManan/kubera",
+      image: "",
+    },
+    {
+      title: "Snapmart",
+      year: "2025",
+      kind: "Full-stack app",
+      summary: "A quick-commerce grocery store, end to end: OTP sign-in, catalogue and categories, inventory, orders and delivery agents.",
+      stack: ["Go", "PostgreSQL", "Redis", "React", "TypeScript"],
+      href: "https://github.com/xManan/snapmart",
+      image: "",
+    },
+    {
+      title: "home-server",
+      year: "2025",
+      kind: "Self-hosted infrastructure",
+      summary:
+        "An old laptop turned home server, declared entirely in NixOS: media streaming with Jellyfin, downloads over a VPN, nginx in front, a tunnel to the internet and wake-on-LAN.",
+      stack: ["NixOS", "nginx", "Docker"],
+      href: "https://github.com/xManan/home-server",
       image: "",
     },
   ],

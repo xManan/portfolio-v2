@@ -12,7 +12,7 @@
  *
  *   RESEED_CONTENT=1 npm run seed
  *
- * Replaces the site's text (role, hero, contact and every Home section) with
+ * Replaces the site's text (role, location, hero, contact and every Home section) with
  * the starter copy below, even if set. Leaves your name, email, socials,
  * quote, photos and articles alone. Project images are reset.
  */
@@ -69,7 +69,7 @@ if (settings.name && reseedContent) {
   await payload.updateGlobal({
     slug: "settings",
     ...ctx,
-    data: { role: d.person.role, hero: d.hero, contact: d.contact },
+    data: { role: d.person.role, location: d.person.location, hero: d.hero, contact: d.contact },
   });
   payload.logger.info("Replaced site settings text");
 }
