@@ -9,14 +9,15 @@ import { Container, EASE, Heading } from "./ui";
 
 const W = 300;
 const H = 200;
-const GAP = 14;
+/** Distance between the cursor and the nearest edge of the cover. */
+const GAP = 56;
 /** Room the floating nav takes at the top of the screen. */
 const NAV = 88;
 
 /**
- * Project rows. On desktop a cover follows the cursor sideways and sits just
- * above the hovered row, or just below it when there isn't room above, so it
- * never covers the row being read.
+ * Project rows. On desktop a cover follows the cursor, keeping a clear
+ * distance above it, or below it when there isn't room above (under the nav),
+ * so it stays out of the way of the text being read.
  */
 export function Work({ projects }: { projects: HomeContent["projects"] }) {
   const list = useRef<HTMLUListElement>(null);
@@ -40,15 +41,14 @@ export function Work({ projects }: { projects: HomeContent["projects"] }) {
           ref={list}
           className="relative"
           onPointerMove={(e) => {
-            const row = (e.target as HTMLElement).closest("li");
-            if (!row || !list.current) return;
+            if (!list.current) return;
             const l = list.current.getBoundingClientRect();
-            const r = row.getBoundingClientRect();
-            // Above the row if it fits under the nav, otherwise below it.
-            const under = r.top - GAP - H < NAV && r.bottom + GAP + H <= window.innerHeight;
+            // Above the cursor if it fits under the nav, otherwise below it.
+            const under = e.clientY - GAP - H < NAV;
             setBelow(under);
             const nx = Math.min(Math.max(e.clientX - l.left - W / 2, 0), l.width - W);
-            const ny = under ? r.bottom - l.top + GAP : r.top - l.top - GAP - H;
+            const cy = e.clientY - l.top;
+            const ny = under ? cy + GAP : cy - GAP - H;
             x.set(nx);
             y.set(ny);
             if (!placed.current) {
