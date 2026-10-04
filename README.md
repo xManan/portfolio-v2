@@ -18,6 +18,15 @@ npm run seed             # fill it with starter content
 npm run dev              # site on http://localhost:3000, dashboard on /admin
 ```
 
+`npm run seed` only fills what's empty and imports articles from `content/notes`
+that aren't in the database yet. To overwrite existing data with the starter
+content:
+
+```bash
+RESEED_CONTENT=1 npm run seed   # all the text (keeps name, email, socials, quote, photos, articles)
+RESEED_OBJECTS=1 npm run seed   # the About objects and their photos
+```
+
 ## Where things live
 
 | What | Where |

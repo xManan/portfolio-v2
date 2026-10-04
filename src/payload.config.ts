@@ -25,7 +25,7 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,
-      BlocksFeature({ blocks: [CodeBlock({ defaultLanguage: "ts" })] }),
+      BlocksFeature({ blocks: [CodeBlock({ defaultLanguage: "typescript" })] }),
     ],
   }),
   secret: process.env.PAYLOAD_SECRET || "",

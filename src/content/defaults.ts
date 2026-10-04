@@ -9,7 +9,7 @@
 export const person = {
   name: "Manan Chawla",
   firstName: "Manan",
-  role: "Backend engineer",
+  role: "Software engineer",
   // TODO(manan): your city (shown once, in the footer).
   location: "New Delhi, India",
   // TODO(manan): confirm the email you want people to use.
@@ -28,11 +28,11 @@ export const quote = {
 };
 
 export const hero = {
-  greeting: "Hi, I’m Manan, a backend engineer.",
+  greeting: "Hi, I’m Manan. I design systems.",
   // Keep this to two lines on desktop (about 40 characters).
-  headline: "I build quiet systems that just work.",
+  headline: "I design the system. AI writes the code.",
   // Max 20 words.
-  intro: "I design the APIs, data and infrastructure people never see, and make sure they never have to.",
+  intro: "Backend first, then full stack. Now I design how software should work and let AI write most of it.",
 };
 
 /** About. Read top to bottom, it should feel like a letter. */
@@ -42,7 +42,7 @@ export const story = {
   // own voice: where you grew up, what pulled you into computers, what you
   // care about outside of work.
   lead:
-    "I fell in love with computers the way most people fall in love with anything: by breaking one first. What kept me there wasn’t the code. It was the feeling of taking something tangled and making it calm, clear and dependable. I still chase that feeling every day. Outside of work I’m a curious, slightly obsessive learner who believes the best engineers are, first, good people to build with.",
+    "I started in the backend, where the work is invisible and the stakes are real. Then I followed it up the stack, until I could build a product end to end. Somewhere along the way the typing stopped being the hard part. Today I spend my time on the decisions that matter: how a system should work, where it should bend, and what happens when it breaks. AI writes most of the code. I make sure it’s the right code.",
   // The things that tell your story, top to bottom. Files live in content/objects
   // (placeholder photos from Wikimedia Commons, see the LICENSE.md there);
   // replace them with cut-out photos of your own things in /admin.
@@ -51,8 +51,8 @@ export const story = {
     {
       file: "laptop.webp",
       label: "My MacBook Air",
-      caption: "It works on my machine. I checked twice.",
-      story: "Where the day job happens: APIs, queues, databases and the quiet work of making them boring. There is always a terminal open.",
+      caption: "Less typing, more thinking.",
+      story: "Where the day job happens. I sketch the system, write the spec, then pair with AI to build it, and read every line before it ships.",
       size: "large",
     },
     {
@@ -99,6 +99,10 @@ export const principles = {
   items: [
     // TODO(manan): keep the ones that are true, rewrite the rest.
     {
+      title: "Judgement is the job",
+      body: "AI can write the code. Deciding what to build, what to leave out and when something is good enough is still on me.",
+    },
+    {
       title: "Leave it better than you found it",
       body: "Codebases, teams, conversations. I try to make every place I pass through a little clearer and a little kinder.",
     },
@@ -108,15 +112,11 @@ export const principles = {
     },
     {
       title: "Curiosity is a discipline",
-      body: "“I don’t know yet” is my favourite sentence. I’d rather understand one thing deeply than skim ten.",
+      body: "“I don’t know yet” is my favourite sentence. The tools change every month; the habit of learning is what lasts.",
     },
     {
       title: "Own the outcome, not the task",
-      body: "Shipping isn’t the finish line. The thing working for real people is, so I follow my work into production.",
-    },
-    {
-      title: "Patience compounds",
-      body: "Good systems, habits and friendships are built the same way: small, steady, unglamorous effort over years.",
+      body: "Shipping isn’t the finish line. The thing working for real people is, whoever or whatever wrote the code.",
     },
   ],
 };
@@ -125,60 +125,59 @@ export const principles = {
 export const craft = {
   heading: "What I do",
   statement:
-    "I design the parts of software you never see and only notice when they break. My job is to make sure you never have to.",
+    "I decide how a system should work: the boundaries, the data and the failure modes. Then I direct AI to build it, and review the result like it’s mine. Because it is.",
   capabilities: [
     {
-      title: "APIs and services",
-      body: "Clear contracts, sensible boundaries, and services that are easy to reason about at 3am.",
-      items: ["REST and gRPC", "Event-driven design", "Auth and multi-tenancy"],
+      title: "System design",
+      body: "Architecture that fits on a whiteboard: clear boundaries, honest trade-offs and a plan for when things fail.",
+      items: ["Architecture and boundaries", "Data modelling", "Failure modes"],
     },
     {
-      title: "Data and storage",
-      body: "Modelling data so it stays correct as the product grows, and fast where it matters.",
-      items: ["Schema design", "Query performance", "Caching"],
+      title: "AI-assisted engineering",
+      body: "I treat AI as a fast, tireless pair. I write the specs, set the guardrails and review everything it produces.",
+      items: ["Agentic coding", "Specs and context", "Code review"],
     },
     {
-      title: "Reliability",
-      body: "Systems that degrade gracefully, recover on their own, and tell you what went wrong.",
-      items: ["Observability", "Queues and retries", "Failure testing"],
+      title: "Backend",
+      body: "Where I started and still feel most at home: APIs, queues, databases and the quiet work of making them boring.",
+      items: ["APIs and services", "Queues and events", "Performance"],
     },
     {
-      title: "Infrastructure",
-      body: "Boring, reproducible infrastructure so the team can ship without fear.",
-      items: ["Containers", "CI/CD", "Cloud and IaC"],
+      title: "Full stack",
+      body: "Enough of the frontend to ship a product end to end, and to care how it feels to use.",
+      items: ["React and Next.js", "TypeScript", "Product sense"],
     },
   ],
   // TODO(manan): your actual stack.
-  stack: ["Go", "Node.js", "TypeScript", "Python", "PostgreSQL", "Redis", "Kafka", "Docker", "Kubernetes", "AWS", "gRPC", "Linux"],
+  stack: ["Claude Code", "TypeScript", "Go", "Node.js", "Next.js", "React", "Python", "PostgreSQL", "Redis", "Kafka", "Docker", "AWS"],
 };
 
-/** Career, newest first. */
+/** Career, newest first. Backend, then full stack, then systems with AI. */
 export const journey = {
   heading: "Where I’ve been",
   items: [
-    // TODO(manan): replace with your real roles, years and impact.
+    // TODO(manan): your real companies, years and results.
     {
-      period: "2024 - now",
-      role: "Backend engineer",
+      period: "2025 - now",
+      role: "Systems and AI-assisted engineering",
       org: "Company name",
       summary:
-        "Designing and running the services behind the core product, with a focus on performance, reliability and a calm platform to build on.",
-      highlights: ["Cut p99 latency of a critical API by 60%", "Led a zero-downtime data migration"],
+        "I design the system and let AI do most of the writing: architecture, specs, guardrails and review. I ship more, and type less, than ever.",
+      highlights: ["Moved the team to spec-first, AI-assisted development", "A result you’re proud of, with a number"],
     },
     {
-      period: "2023 - 2024",
-      role: "Software engineer",
+      period: "2023 - 2025",
+      role: "Full-stack engineer",
       org: "Previous company",
-      summary: "Built the APIs and background workers for a fast-growing product, and learned what production really means.",
-      highlights: ["Shipped an event pipeline handling millions of events a day"],
+      summary: "Followed the work up the stack and learned to build the whole product, from the database to the button people click.",
+      highlights: ["Shipped features end to end, from schema to UI"],
     },
     {
       period: "2021 - 2023",
-      role: "Student and builder",
-      org: "University and self-taught",
-      summary:
-        "Where it started: side projects, open source, late nights, and the first time a stranger used something I built.",
-      highlights: ["31 public repositories and counting"],
+      role: "Backend developer",
+      org: "First company",
+      summary: "Where it started: APIs, background workers and databases, and learning what production really means.",
+      highlights: ["Built the services behind the core product"],
     },
   ],
 };
@@ -191,9 +190,9 @@ export const projects = {
     {
       title: "Project one",
       year: "2026",
-      kind: "Distributed system",
-      summary: "A short, human description of the problem this solved and who it helped.",
-      stack: ["Go", "PostgreSQL", "Redis"],
+      kind: "Designed with AI",
+      summary: "A product you designed end to end and built with AI. Say what it does, who it helps and what you decided.",
+      stack: ["Next.js", "PostgreSQL", "Claude Code"],
       href: "https://github.com/xManan",
       image: "",
     },
@@ -209,9 +208,9 @@ export const projects = {
     {
       title: "Project three",
       year: "2025",
-      kind: "Data pipeline",
-      summary: "Moving and shaping data reliably, with retries, backpressure and dashboards that tell the truth.",
-      stack: ["Python", "Kafka", "Docker"],
+      kind: "Backend system",
+      summary: "From your backend years: moving data reliably, with retries, backpressure and dashboards that tell the truth.",
+      stack: ["Go", "Kafka", "Docker"],
       href: "https://github.com/xManan",
       image: "",
     },
@@ -232,10 +231,10 @@ export const now = {
   // TODO(manan): keep this fresh. It's the most human part of the page.
   updated: "October 2026",
   items: [
-    { label: "Building", value: "This site, and a toy key-value store to understand storage engines." },
-    { label: "Learning", value: "Consensus algorithms, reading the Raft paper slowly." },
+    { label: "Building", value: "This site. I designed it; AI wrote most of the code." },
+    { label: "Learning", value: "How to write specs so clear an AI can’t misread them." },
     { label: "Reading", value: "Designing Data-Intensive Applications, again." },
-    { label: "Thinking about", value: "What it takes to write software that lasts ten years." },
+    { label: "Thinking about", value: "What engineering becomes when code is cheap and judgement isn’t." },
   ],
 };
 
@@ -244,11 +243,11 @@ export const shelf = [
   // TODO(manan): your actual shelf.
   { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann", note: "The book that made backend click." },
   { title: "The Pragmatic Programmer", author: "Hunt and Thomas", note: "Care about your craft." },
-  { title: "A Philosophy of Software Design", author: "John Ousterhout", note: "Complexity is the enemy." },
+  { title: "A Philosophy of Software Design", author: "John Ousterhout", note: "Complexity is the enemy, even when it’s cheap to write." },
   { title: "Atomic Habits", author: "James Clear", note: "Small things, consistently." },
 ];
 
 export const contact = {
   heading: "Let’s build something that lasts.",
-  body: "I’m always happy to talk about backend systems, a role, or an idea you’re chewing on.",
+  body: "I’m always happy to talk about system design, building with AI, a role, or an idea you’re chewing on.",
 };
