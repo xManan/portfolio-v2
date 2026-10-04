@@ -47,6 +47,9 @@ export default buildConfig({
     // (only when its token is set; otherwise files stay in MEDIA_DIR).
     vercelBlobStorage({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      // Keep the plugin's fields in the schema even without a token, so the
+      // database (and its migrations) is the same locally and on Vercel.
+      alwaysInsertFields: true,
       collections: { media: true },
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
