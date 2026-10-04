@@ -9,6 +9,7 @@ import { ConnectProvider } from "@/components/connect";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { IntroProvider } from "@/components/intro-context";
 import { Analytics } from "@vercel/analytics/next";
+import { basePath, withBase } from "@/lib/base-path";
 
 // Public address of the site, for link previews. Server-only; the old
 // NEXT_PUBLIC_SERVER_URL name still works.
@@ -21,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: title, template: `%s | ${person.name}` },
     description: hero.intro,
     openGraph: { title, description: hero.intro, type: "website" },
-    icons: { icon: "/icon.svg" },
+    icons: { icon: withBase("/icon.svg") },
     metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   };
 }
@@ -33,7 +34,8 @@ export const viewport: Viewport = {
 // Runs before first paint. Every full load of the home page plays the intro
 // from the top (the browser's restored scroll position would hide the hero it
 // reveals). Other pages skip it.
-const introScript = `(function(){var r=document.documentElement;if(location.pathname==="/"){r.dataset.intro="play";try{history.scrollRestoration="manual"}catch(e){}window.scrollTo(0,0)}else{r.dataset.intro="done"}})()`;
+const home = JSON.stringify(basePath || "/");
+const introScript = `(function(){var r=document.documentElement,p=location.pathname.replace(/\\/$/,"")||"/";if(p===${home}){r.dataset.intro="play";try{history.scrollRestoration="manual"}catch(e){}window.scrollTo(0,0)}else{r.dataset.intro="done"}})()`;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { person } = await getSite();

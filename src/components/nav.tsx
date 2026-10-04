@@ -10,6 +10,7 @@ import { ConnectButton, socialIcon, useLinks } from "./connect";
 import { useIntro } from "./intro-context";
 import { scrollTo } from "./smooth-scroll";
 import { EASE } from "./ui";
+import { withBase } from "@/lib/base-path";
 
 const links = [
   { id: "about", label: "About" },
@@ -65,7 +66,7 @@ export function Nav({ person }: { person: { name: string } }) {
             {links.map((l) => (
               <a
                 key={l.id}
-                href={`/#${l.id}`}
+                href={withBase(`/#${l.id}`)}
                 onClick={(e) => go(e, l.id)}
                 className="rounded-full px-4 py-2 text-[14px] text-soft transition-colors duration-200 hover:bg-mist hover:text-ink"
               >
@@ -112,7 +113,7 @@ export function Nav({ person }: { person: { name: string } }) {
               {links.map((l, i) => (
                 <li key={l.id} className="overflow-hidden">
                   <motion.a
-                    href={`/#${l.id}`}
+                    href={withBase(`/#${l.id}`)}
                     onClick={(e) => go(e, l.id)}
                     className="block font-display text-5xl font-semibold tracking-[-0.035em]"
                     initial={{ y: "100%" }}

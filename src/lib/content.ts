@@ -3,6 +3,7 @@ import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Media, Post } from "@/payload-types";
+import { withBase } from "@/lib/base-path";
 
 /**
  * All site content comes from the Payload database through its in-process
@@ -17,7 +18,10 @@ const list = (csv?: string | null) =>
     .map((s) => s.trim())
     .filter(Boolean);
 
-const mediaUrl = (m?: number | Media | null) => (m && typeof m === "object" ? m.sizes?.large?.url || m.url || "" : "");
+const mediaUrl = (m?: number | Media | null) => {
+  const url = m && typeof m === "object" ? m.sizes?.large?.url || m.url || "" : "";
+  return url ? withBase(url) : "";
+};
 
 export const getSite = cache(async () => {
   const p = await payload();
@@ -30,7 +34,7 @@ export const getSite = cache(async () => {
       role: s.role,
       location: s.location ?? "",
       portrait: portrait
-        ? { src: portrait.url as string, width: portrait.width ?? 800, height: portrait.height ?? 1000, alt: portrait.alt || s.name }
+        ? { src: withBase(portrait.url as string), width: portrait.width ?? 800, height: portrait.height ?? 1000, alt: portrait.alt || s.name }
         : null,
       email: s.email,
       socials: (s.socials ?? []).map(({ label, href }) => ({ label, href })),
@@ -53,7 +57,7 @@ export const getHome = cache(async () => {
         .map((o) => {
           const m = o.image as Media;
           return {
-            src: m.url as string,
+            src: withBase(m.url as string),
             width: m.width ?? 400,
             height: m.height ?? 400,
             label: o.label,

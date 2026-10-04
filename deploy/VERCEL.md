@@ -85,6 +85,39 @@ the admin account.
 shows at your registrar. Then set `SITE_URL` to
 `https://yourdomain.com` and redeploy.
 
+## Serving it under a path (e.g. `yourdomain.com/cloud-kitchen-os`)
+
+The whole site, dashboard included, can live under a path instead of the root.
+
+1. In Vercel, add the environment variable `BASE_PATH` = `/cloud-kitchen-os` and
+   redeploy. The site is then at `https://<project>.vercel.app/cloud-kitchen-os`,
+   the dashboard at `/cloud-kitchen-os/admin`, and the bare Vercel URL redirects there.
+2. Set `SITE_URL` to `https://yourdomain.com` (the domain only, no path).
+3. In Cloudflare, forward that path on your domain to Vercel with a Worker:
+   **Workers & Pages → Create → Worker**, paste this, set `VERCEL_HOST`, and **Deploy**:
+
+   ```js
+   const VERCEL_HOST = "<project>.vercel.app";
+
+   export default {
+     async fetch(request) {
+       const url = new URL(request.url);
+       url.hostname = VERCEL_HOST;
+       return fetch(new Request(url, request), { redirect: "manual" });
+     },
+   };
+   ```
+
+4. Open the Worker's **Settings → Domains & Routes → Add → Route** and add two routes
+   (zone: your domain):
+   - `yourdomain.com/cloud-kitchen-os*` (the site)
+   - `yourdomain.com/_vercel/*` (Vercel Analytics loads its script from the domain root)
+
+   Your domain's DNS record must be **Proxied** (orange cloud) for routes to run.
+
+The rest of `yourdomain.com` is untouched. Changing the path later means
+updating `BASE_PATH`, the first route and redeploying.
+
 ## Day to day
 
 - **Content:** edit in `/admin`. Saving is live, no deploy.
