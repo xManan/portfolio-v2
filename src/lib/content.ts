@@ -93,7 +93,9 @@ export const getHome = cache(async () => {
         stack: list(x.stack),
         href: x.href,
         image: mediaUrl(x.image),
-      })),
+      }))
+        // Newest first by year; projects from the same year keep their dashboard order.
+        .sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0)),
     },
     now: { updated: h.now.updated, items: (h.now.items ?? []).map(({ label, value }) => ({ label, value })) },
     shelf: (h.shelf?.books ?? []).map(({ title, author, note }) => ({ title, author, note })),

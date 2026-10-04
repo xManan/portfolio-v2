@@ -193,19 +193,10 @@ export const journey = {
   ],
 };
 
-/** Projects. Optional `image` is a path in /public; without it a gradient cover is drawn. */
+/** Projects, newest first (the site sorts by year). Without an image a gradient cover is drawn. */
 export const projects = {
   heading: "Things I’ve built",
   items: [
-    {
-      title: "go-t",
-      year: "2024",
-      kind: "Command-line tool",
-      summary: "A typing speed test that lives in the terminal. Small, fast and written in Go, with a Nix flake so it runs anywhere.",
-      stack: ["Go", "CLI", "Nix"],
-      href: "https://github.com/xManan/go-t",
-      image: "",
-    },
     {
       title: "Kubera",
       year: "2026",
@@ -233,6 +224,15 @@ export const projects = {
         "An old laptop turned home server, declared entirely in NixOS: media streaming with Jellyfin, downloads over a VPN, nginx in front, a tunnel to the internet and wake-on-LAN.",
       stack: ["NixOS", "nginx", "Docker"],
       href: "https://github.com/xManan/home-server",
+      image: "",
+    },
+    {
+      title: "go-t",
+      year: "2024",
+      kind: "Command-line tool",
+      summary: "A typing speed test that lives in the terminal. Small, fast and written in Go, with a Nix flake so it runs anywhere.",
+      stack: ["Go", "CLI", "Nix"],
+      href: "https://github.com/xManan/go-t",
       image: "",
     },
   ],
